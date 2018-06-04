@@ -1,0 +1,129 @@
+extend __core__/default
+block content
+	+panel().light.cf
+		div#scoutWrapper
+			- var scoutName = ["Praval", "Romil", "Thirtha", "Ashis", "Raja", "Aiman", "Shishant"]
+			- var i = 0
+			- var count = scoutName.length
+			+loop(count)
+					div.scout
+						div.name(data-name= scoutName[i])= scoutName[i]
+						- i++
+		div#progressWrapper
+			div#shadowBarsWrapper
+				- var i = 0
+				+loop(count)
+					div.shadow-progress-bar(data-owner= scoutName[i])
+					- i++
+			div#barsWrapper
+				- var i = 0
+				+loop(count)
+					div.progress-bar.cf(data-owner= scoutName[i])
+					- i++
+			div#rankWrapper.cf
+				- rankName = ["Scout", "Tenderfoot", "Second Class", "First Class", "Star", "Life", "Eagle"]
+				- var scoutProgress = [10, 100, 50, 25, 80]
+				- var x = 0
+				- var a = 0
+				- var rankCount = rankName.length
+				+loop(rankCount)
+					div.rank(data-length= scoutProgress[a])
+						h4.center-justify= rankName[x]
+						- x++, a++
+	+panel().dark.footer
+block script
+	script(src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js")
+	script(src="/js/scout-record.js")
+	script.
+		// Initialize Firebase
+		var config = {
+			apiKey: "AIzaSyDX2dGX41G6pEKq4AOjnM4sdrVMs0bGJzM",
+			authDomain: "path-to-eagle.firebaseapp.com",
+			databaseURL: "https://path-to-eagle.firebaseio.com",
+			projectId: "path-to-eagle",
+			storageBucket: "path-to-eagle.appspot.com",
+			messagingSenderId: "331583012361"
+		};
+		firebase.initializeApp(config);
+		
+		
+		$('.scout .name').click(function(e) {
+			if ($(this).hasClass('selected')) {
+				$(this).removeClass('selected');
+				$('.shadow-progress-bar').removeClass('selected');
+				$('.progress-bar').removeClass('selected');
+			}
+			else {
+				$('.scout .name').removeClass('selected');
+				$('.shadow-progress-bar').removeClass('selected');
+				$('.progress-bar').removeClass('selected');
+				$(this).addClass('selected');
+				$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
+			}
+		});
+		$('form').each(function() {
+			console.log($(this).attr('id'));
+			magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
+		});
+		
+		function sortKeys(obj) {
+			var ordered = {};
+			Object.keys(obj).sort().forEach(function(key) {
+				ordered[key] = obj[key];
+			});
+			return ordered;
+		}
+		
+		function initBarFragments() {
+			var progressBarBuild = [];
+			record.ranks.forEach(function(_rank_) {
+				var size = Object.keys(_rank_.requirements).length;
+				var fragmentWidth = 270 / size;
+				var requirementsList = [];
+				for (var key in _rank_.requirements) {
+					requirementsList.push(key);
+				}
+				//- console.log("before: ", requirementsList);
+				requirementsList.sort();
+				//- console.log("after: ", requirementsList);
+				requirementsList.forEach(function(_requirement_) {
+					progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment" data-rank="${_rank_.name}" data-requirement="${_requirement_}"></div>`);
+				})
+			});
+			return progressBarBuild;
+		}
+
+		function initMemberBars(memberBarList) {
+			record.members.forEach(function(_boy_) {
+				memberBarList.forEach(function(_fragment_) {
+					$('[data-owner="'+ _boy_.name +'"].progress-bar').append(_fragment_);
+				});
+			});
+		}
+		
+		function initMarkedBars() {
+			record.members.forEach(function(_boy_) {
+				_boy_.ranks.forEach(function(_rank_) {
+					//- console.log(_rank_.requirements);
+					_rank_.requirements.forEach(function(_requirement_) {
+						//- console.log("name: ", _boy_.name, " rank: ", _rank_.name, "completed: ", _requirement_);
+						$('[data-owner="'+ _boy_.name +'"] [data-rank="'+ _rank_.name +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
+					});
+				});
+			});
+		}
+		
+		var barFragments = initBarFragments();
+		//- console.log(barFragments);
+		initMemberBars(barFragments);
+		initMarkedBars();
+		
+		
+		//- 
+		//- record.members.forEach(function(_boy_) {
+		//- 	_boy_.ranks.forEach(function(_rank_) {
+		//- 		_rank_.forEach(function(_requirement_) {
+		//- 			$('[data-owner="'+ _boy_ +'"] [data-rank="'+ _rank_ +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
+		//- 		});
+		//- 	});
+		//- });

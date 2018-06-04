@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
+  </head>
+  <body>
+    <div id="drawer" class="use-native-click">
+      <nav class="menu-drawer">
+        <div>
+          <ul>
+            <li>
+              <div class="logo-wrapper"><a href="/" class="logo">Path To Eagle</a></div>
+            </li>
+            <li><a href="/">Home</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+    <div id="siteWrapper">
+      <div id="open">
+        <header>
+          <section class="rack">
+            <div data-target="body, #siteWrapper, #drawer" class="icon-menu toggle use-native-click"></div>
+            <div class="mobile-rack-space">
+              <div class="logo-wrapper"><a href="/" class="logo">TheSite</a></div>
+            </div>
+          </section>
+        </header>
+        <nav class="desktop-nav dark">
+          <ul>
+            <li>
+                        <div class="logo-wrapper"><a href="/" class="logo">Path To Eagle</a></div>
+            </li>
+            <li><a href="/">Home</a>
+            </li>
+          </ul>
+        </nav>
+                  <div class="panel-wrap light cf">
+                    <section class="panel">
+                      <div id="scoutWrapper">
+                                  <div class="scout">
+                                    <div data-name="Praval" class="name">Praval</div>
+                                  </div>
+                                  <div class="scout">
+                                    <div data-name="Romil" class="name">Romil</div>
+                                  </div>
+                                  <div class="scout">
+                                    <div data-name="Thirtha" class="name">Thirtha</div>
+                                  </div>
+                                  <div class="scout">
+                                    <div data-name="Ashis" class="name">Ashis</div>
+                                  </div>
+                                  <div class="scout">
+                                    <div data-name="Raja" class="name">Raja</div>
+                                  </div>
+                                  <div class="scout">
+                                    <div data-name="Aiman" class="name">Aiman</div>
+                                  </div>
+                                  <div class="scout">
+                                    <div data-name="Shishant" class="name">Shishant</div>
+                                  </div>
+                      </div>
+                      <div id="progressWrapper">
+                        <div id="shadowBarsWrapper">
+                                    <div data-owner="Praval" class="shadow-progress-bar"></div>
+                                    <div data-owner="Romil" class="shadow-progress-bar"></div>
+                                    <div data-owner="Thirtha" class="shadow-progress-bar"></div>
+                                    <div data-owner="Ashis" class="shadow-progress-bar"></div>
+                                    <div data-owner="Raja" class="shadow-progress-bar"></div>
+                                    <div data-owner="Aiman" class="shadow-progress-bar"></div>
+                                    <div data-owner="Shishant" class="shadow-progress-bar"></div>
+                        </div>
+                        <div id="barsWrapper">
+                                    <div data-owner="Praval" class="progress-bar cf"></div>
+                                    <div data-owner="Romil" class="progress-bar cf"></div>
+                                    <div data-owner="Thirtha" class="progress-bar cf"></div>
+                                    <div data-owner="Ashis" class="progress-bar cf"></div>
+                                    <div data-owner="Raja" class="progress-bar cf"></div>
+                                    <div data-owner="Aiman" class="progress-bar cf"></div>
+                                    <div data-owner="Shishant" class="progress-bar cf"></div>
+                        </div>
+                        <div id="rankWrapper" class="cf">
+                                    <div data-length='10' class="rank">
+                                      <h4 class="center-justify">Scout</h4>
+                                    </div>
+                                    <div data-length='100' class="rank">
+                                      <h4 class="center-justify">Tenderfoot</h4>
+                                    </div>
+                                    <div data-length='50' class="rank">
+                                      <h4 class="center-justify">Second Class</h4>
+                                    </div>
+                                    <div data-length='25' class="rank">
+                                      <h4 class="center-justify">First Class</h4>
+                                    </div>
+                                    <div data-length='80' class="rank">
+                                      <h4 class="center-justify">Star</h4>
+                                    </div>
+                                    <div class="rank">
+                                      <h4 class="center-justify">Life</h4>
+                                    </div>
+                                    <div class="rank">
+                                      <h4 class="center-justify">Eagle</h4>
+                                    </div>
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                  <div class="panel-wrap dark footer">
+                    <section class="panel">
+                    </section>
+                  </div>
+      </div>
+    </div>
+  </body>
+</html>
+<div class="footer-nav"></div>
+<script src="/js/jquery-1.11.1.min.js"></script>
+<script src="/js/TweenMax.min.js"></script>
+<script src="/js/main.lib.js"></script>
+<script src="/js/magicVial-0.6.2.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+<script src="/js/scout-record.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+  	apiKey: "AIzaSyDX2dGX41G6pEKq4AOjnM4sdrVMs0bGJzM",
+  	authDomain: "path-to-eagle.firebaseapp.com",
+  	databaseURL: "https://path-to-eagle.firebaseio.com",
+  	projectId: "path-to-eagle",
+  	storageBucket: "path-to-eagle.appspot.com",
+  	messagingSenderId: "331583012361"
+  };
+  firebase.initializeApp(config);
+  
+  
+  $('.scout .name').click(function(e) {
+  	if ($(this).hasClass('selected')) {
+  		$(this).removeClass('selected');
+  		$('.shadow-progress-bar').removeClass('selected');
+  		$('.progress-bar').removeClass('selected');
+  	}
+  	else {
+  		$('.scout .name').removeClass('selected');
+  		$('.shadow-progress-bar').removeClass('selected');
+  		$('.progress-bar').removeClass('selected');
+  		$(this).addClass('selected');
+  		$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
+  	}
+  });
+  $('form').each(function() {
+  	console.log($(this).attr('id'));
+  	magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
+  });
+  
+  function sortKeys(obj) {
+  	var ordered = {};
+  	Object.keys(obj).sort().forEach(function(key) {
+  		ordered[key] = obj[key];
+  	});
+  	return ordered;
+  }
+  
+  function initBarFragments() {
+  	var progressBarBuild = [];
+  	record.ranks.forEach(function(_rank_) {
+  		var size = Object.keys(_rank_.requirements).length;
+  		var fragmentWidth = 270 / size;
+  		var requirementsList = [];
+  		for (var key in _rank_.requirements) {
+  			requirementsList.push(key);
+  		}
+  		//- console.log("before: ", requirementsList);
+  		requirementsList.sort();
+  		//- console.log("after: ", requirementsList);
+  		requirementsList.forEach(function(_requirement_) {
+  			progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment" data-rank="${_rank_.name}" data-requirement="${_requirement_}"></div>`);
+  		})
+  	});
+  	return progressBarBuild;
+  }
+  
+  function initMemberBars(memberBarList) {
+  	record.members.forEach(function(_boy_) {
+  		memberBarList.forEach(function(_fragment_) {
+  			$('[data-owner="'+ _boy_.name +'"].progress-bar').append(_fragment_);
+  		});
+  	});
+  }
+  
+  function initMarkedBars() {
+  	record.members.forEach(function(_boy_) {
+  		_boy_.ranks.forEach(function(_rank_) {
+  			//- console.log(_rank_.requirements);
+  			_rank_.requirements.forEach(function(_requirement_) {
+  				//- console.log("name: ", _boy_.name, " rank: ", _rank_.name, "completed: ", _requirement_);
+  				$('[data-owner="'+ _boy_.name +'"] [data-rank="'+ _rank_.name +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
+  			});
+  		});
+  	});
+  }
+  
+  var barFragments = initBarFragments();
+  //- console.log(barFragments);
+  initMemberBars(barFragments);
+  initMarkedBars();
+  
+  
+  //- 
+  //- record.members.forEach(function(_boy_) {
+  //- 	_boy_.ranks.forEach(function(_rank_) {
+  //- 		_rank_.forEach(function(_requirement_) {
+  //- 			$('[data-owner="'+ _boy_ +'"] [data-rank="'+ _rank_ +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
+  //- 		});
+  //- 	});
+  //- });
+</script>

@@ -1,0 +1,141 @@
+@import '../template_files/stylus/imports'
+@import 'nib'
+
+// Declare all fonts first
+fonts(open-sans)
+fonts(play)
+fonts(blockletter)
+iconfont()
+// Now declare global reset and all dependencies: base, headings, forms, etc
+global-reset()
+base()
+headings()
+forms()
+forms-segments()
+widgets()
+mobile()
+segments()
+responsive-segments()
+demo()
+
+// edit()
+
+body, *
+	font-family: open-sans
+h1
+h2
+h3
+h4
+h5
+h6
+	font-family: open-sans
+
+#siteWrapper
+	background-color: white
+
+// Begin your custom styles here!
+
+segment = 269
+
+#scoutWrapper
+#barsWrapper
+#shadowBarsWrapper
+	margin-top: 40px
+
+#scoutWrapper
+	float: left
+	width: 120px
+	margin-bottom: 60px
+
+#progressWrapper
+	float: left
+	position: relative
+	overflow-x: auto
+	width: 800px
+	// box-shadow: inset -30px 10px 95px -6px rgba(0,0,0,0.1)
+
+#rankWrapper
+	position: absolute
+	top: 0
+	left: 0
+	width: ((segment * 7) + 7 + 3)px
+	z-index: 3
+
+#barsWrapper
+	position: relative
+	z-index: 2
+
+#shadowBarsWrapper
+	position: absolute
+	top: 0
+	left: 0
+	z-index: 1
+
+.shadow-progress-bar
+	margin-bottom: 25px
+	height: 26px
+	width: ((segment * 7) + 7)px
+	&.selected
+		background-color: #eee
+
+.rank
+	float: left
+	border-right: 1px solid #d2d2d2
+	height: 372px
+	width: (segment)px
+
+.scout
+	margin-bottom: 25px
+	&:after
+		content: ""
+		display: table
+		clear: both
+
+.scout .name
+	padding: 5px 20px
+	border-radius: 100px 0 0 100px
+	width: 80px
+	color: white
+	letter-spacing: 1px
+	background-color: #4e4e4e
+	text-align: right
+	cursor: pointer
+	&.selected
+		background-color: #b30164 // 960101, 6d00b1, 8100ab, b30164
+
+.progress-bar
+	margin-bottom: 25px
+	height: 26px
+	width: ((segment * 7) + 7)px
+	.fragment
+		position: relative
+		float: left
+		height: 26px
+		&.completed
+			background-color: #3eadff // 199eff, 3eadff, 43aefd
+
+.progress-bar.selected
+	.fragment.completed
+		background-color: #1d79ec
+		&:after
+			content: ""
+			position: absolute
+			right: 1px
+			top: 0
+			bottom: 0
+			margin: auto
+			width: 1px
+			background-color: rgba(255,255,255,0.25)
+
+.scout .name
+.progress-bar .fragment
+.shadow-progress-bar
+	transition: all 0.17s ease-in-out
+
+.rank h4
+	font-size: 1.5rem
+
+.cf:after
+	content: ""
+	display: table
+	clear: both
