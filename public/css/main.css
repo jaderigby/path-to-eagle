@@ -5793,7 +5793,10 @@ h6 {
 #scoutWrapper,
 #barsWrapper,
 #shadowBarsWrapper {
-  margin-top: 40px;
+  margin-top: 41px;
+}
+.rank h4 {
+  font-size: 1.5rem;
 }
 #scoutWrapper {
   float: left;
@@ -5811,6 +5814,8 @@ h6 {
   top: 0;
   left: 0;
   width: 1893px;
+  background: transparent;
+  pointer-events: none;
   z-index: 3;
 }
 #barsWrapper {
@@ -5832,10 +5837,22 @@ h6 {
   background-color: #eee;
 }
 .rank {
+  position: relative;
   float: left;
-  border-right: 1px solid #d2d2d2;
-  height: 372px;
+  height: 373px;
   width: 269px;
+}
+.rank:after {
+  content: "";
+  position: absolute;
+  width: 1px;
+  background-color: #d2d2d2;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+.rank:last-child:after {
+  background-color: transparent;
 }
 .scout {
   margin-bottom: 25px;
@@ -5871,16 +5888,27 @@ h6 {
 .progress-bar .fragment.completed {
   background-color: #3eadff;
 }
+.progress-bar.selected .fragment {
+  cursor: pointer;
+}
+.progress-bar.selected .fragment:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background-color: #fff;
+}
 .progress-bar.selected .fragment.completed {
   background-color: #1d79ec;
 }
 .progress-bar.selected .fragment.completed:after {
   content: "";
   position: absolute;
-  right: 1px;
+  right: 0;
   top: 0;
   bottom: 0;
-  margin: auto;
   width: 1px;
   background-color: rgba(255,255,255,0.25);
 }
@@ -5893,8 +5921,8 @@ h6 {
   -ms-transition: all 0.17s ease-in-out;
   transition: all 0.17s ease-in-out;
 }
-.rank h4 {
-  font-size: 1.5rem;
+#progressWrapper {
+  border-right: 8px solid #f3f3f3;
 }
 .cf:after {
   content: "";

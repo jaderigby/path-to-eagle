@@ -40,7 +40,11 @@ segment = 269
 #scoutWrapper
 #barsWrapper
 #shadowBarsWrapper
-	margin-top: 40px
+	margin-top: 41px
+
+.rank h4
+	// margin-top: 10px
+	font-size: 1.5rem
 
 #scoutWrapper
 	float: left
@@ -59,6 +63,8 @@ segment = 269
 	top: 0
 	left: 0
 	width: ((segment * 7) + 7 + 3)px
+	background: transparent;
+	pointer-events: none
 	z-index: 3
 
 #barsWrapper
@@ -79,10 +85,21 @@ segment = 269
 		background-color: #eee
 
 .rank
+	position: relative
 	float: left
-	border-right: 1px solid #d2d2d2
-	height: 372px
+	height: 373px
 	width: (segment)px
+	&:after
+		content: ""
+		position: absolute
+		width: 1px
+		background-color: #d2d2d2
+		right: 0
+		top: 0
+		bottom: 0
+	&:last-child
+		&:after
+			background-color: transparent
 
 .scout
 	margin-bottom: 25px
@@ -115,15 +132,26 @@ segment = 269
 			background-color: #3eadff // 199eff, 3eadff, 43aefd
 
 .progress-bar.selected
+	.fragment
+		cursor: pointer
+		&:after
+			content: ""
+			position: absolute
+			right: 0
+			top: 0
+			bottom: 0
+			width: 1px
+			background-color: white
+
+.progress-bar.selected
 	.fragment.completed
 		background-color: #1d79ec
 		&:after
 			content: ""
 			position: absolute
-			right: 1px
+			right: 0
 			top: 0
 			bottom: 0
-			margin: auto
 			width: 1px
 			background-color: rgba(255,255,255,0.25)
 
@@ -132,8 +160,21 @@ segment = 269
 .shadow-progress-bar
 	transition: all 0.17s ease-in-out
 
-.rank h4
-	font-size: 1.5rem
+#progressWrapper
+	border-right: 8px solid #f3f3f3
+	// box-shadow: inset -13px 0 35px rgba(0,0,0,0.06)
+
+// #progressWrapper:after
+// 	content: ""
+// 	position: absolute
+// 	width: 45px
+// 	right: 0
+// 	top: 0
+// 	bottom: 0
+// 	/* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#1e5799+0,000000+100&0+0,0.05+66,0.08+100 */
+// 	background: -moz-linear-gradient(left, rgba(30,87,153,0) 0%, rgba(10,30,52,0.05) 66%, rgba(0,0,0,0.08) 100%); /* FF3.6-15 */
+// 	background: -webkit-linear-gradient(left, rgba(30,87,153,0) 0%,rgba(10,30,52,0.05) 66%,rgba(0,0,0,0.08) 100%); /* Chrome10-25,Safari5.1-6 */
+// 	background: linear-gradient(to right, rgba(30,87,153,0) 0%,rgba(10,30,52,0.05) 66%,rgba(0,0,0,0.08) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 
 .cf:after
 	content: ""

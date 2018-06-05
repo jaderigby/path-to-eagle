@@ -27,7 +27,7 @@ block content
 				- var a = 0
 				- var rankCount = rankName.length
 				+loop(rankCount)
-					div.rank(data-length= scoutProgress[a])
+					div.rank(data-lane= rankName[x])
 						h4.center-justify= rankName[x]
 						- x++, a++
 	+panel().dark.footer
@@ -62,7 +62,6 @@ block script
 			}
 		});
 		$('form').each(function() {
-			console.log($(this).attr('id'));
 			magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
 		});
 		
@@ -74,17 +73,47 @@ block script
 			return ordered;
 		}
 		
+		Object.size = function(obj) {
+			var size = 0, key;
+			for (key in obj) {
+				if (obj.hasOwnProperty(key)) size++;
+			}
+			return size;
+		};
+		
+		function compare(a,b) {
+			let comparison = 0, x, y;
+
+			if (a.match(/[a-z]/i) && b.match(/[a-z]/i)) {
+				x = a;
+				y = b;
+			}
+			else {
+				x = parseInt(a.replace(/[a-z]/g, ''));
+				y = parseInt(b.replace(/[a-z]/g, ''));
+			}
+
+			if (x > y) {
+				comparison = 1;
+			} else if (y > x) {
+				comparison = -1;
+			}
+
+			return comparison;
+		}
+		
 		function initBarFragments() {
 			var progressBarBuild = [];
 			record.ranks.forEach(function(_rank_) {
 				var size = Object.keys(_rank_.requirements).length;
-				var fragmentWidth = 270 / size;
+				var fragmentWidth = 15;
 				var requirementsList = [];
 				for (var key in _rank_.requirements) {
 					requirementsList.push(key);
 				}
 				//- console.log("before: ", requirementsList);
-				requirementsList.sort();
+				requirementsList.sort(compare);
+				//- console.log(requirementsList);
 				//- console.log("after: ", requirementsList);
 				requirementsList.forEach(function(_requirement_) {
 					progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment" data-rank="${_rank_.name}" data-requirement="${_requirement_}"></div>`);
@@ -113,10 +142,39 @@ block script
 			});
 		}
 		
+		function initRankSeparators() {
+			var total = 0;
+			record.ranks.forEach(function(_rank_) {
+					$('[data-lane="'+ _rank_.name +'"]').css('width', function() {
+						//- console.log(_rank_.requirements);
+						var size = Object.size(_rank_.requirements);
+						var calcWidth = 15 * size;
+						total += calcWidth;
+						return calcWidth + "px";
+						});
+				});
+			$('#rankWrapper').css('width', total + 0 + "px");
+			$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
+		}
+		
 		var barFragments = initBarFragments();
 		//- console.log(barFragments);
 		initMemberBars(barFragments);
 		initMarkedBars();
+		initRankSeparators();
+		
+		$('#barsWrapper').delegate('.selected .fragment', 'click', function(e) {
+			var rank = $(this).attr('data-rank');
+			var requirement = $(this).attr('data-requirement');
+			var desc = "";
+			for (var i = 0; i < record.ranks.length; i++) {
+				if (record.ranks[i].name === rank) {
+					desc = record.ranks[i].requirements[requirement];
+					break;
+				}
+			}
+			alert(rank +": "+ requirement +"\n"+ desc);
+		})
 		
 		
 		//- 
