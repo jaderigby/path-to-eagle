@@ -5804,10 +5804,12 @@ h6 {
 #modalWindow h3 {
   font-size: 1.4rem;
   margin-bottom: 20px;
+  color: #969696;
 }
 h3 .semi {
   display: inline-block;
   font-size: 1.6em;
+  font-weight: 600;
 }
 #scoutWrapper {
   float: left;
