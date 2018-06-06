@@ -1,6 +1,10 @@
 extend __core__/default
 block content
 	+panel().light.cf
+		div#modalWindow.modal.window
+			h3
+			div.rank-content
+		div#keysTrigger ?
 		div#scoutWrapper
 			- var scoutName = ["Praval", "Romil", "Thirtha", "Ashis", "Raja", "Aiman", "Shishant"]
 			- var i = 0
@@ -18,7 +22,7 @@ block content
 			div#barsWrapper
 				- var i = 0
 				+loop(count)
-					div.progress-bar.cf(data-owner= scoutName[i])
+					div.progress-bar.modal.trigger.cf(data-owner= scoutName[i], data-target="modalWindow")
 					- i++
 			div#rankWrapper.cf
 				- rankName = ["Scout", "Tenderfoot", "Second Class", "First Class", "Star", "Life", "Eagle"]
@@ -116,7 +120,7 @@ block script
 				//- console.log(requirementsList);
 				//- console.log("after: ", requirementsList);
 				requirementsList.forEach(function(_requirement_) {
-					progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment" data-rank="${_rank_.name}" data-requirement="${_requirement_}"></div>`);
+					progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment modal trigger" data-trigger="modalWindow" data-rank="${_rank_.name}" data-requirement="${_requirement_}"><div class="label">${_requirement_}</div></div>`);
 				})
 			});
 			return progressBarBuild;
@@ -163,7 +167,14 @@ block script
 		initMarkedBars();
 		initRankSeparators();
 		
-		$('#barsWrapper').delegate('.selected .fragment', 'click', function(e) {
+		$('#keysTrigger').click(function() {
+			$(this).toggleClass('show');
+			$('#progressWrapper').toggleClass('show-keys');
+		});
+		
+		$('#progressWrapper').delegate('.selected .fragment', 'click', function() {
+			var titleLayout = $(this).attr('data-rank') +' <span class="semi">'+ $(this).attr('data-requirement') +'</span>';
+			$('#modalWindow h3').html(titleLayout);
 			var rank = $(this).attr('data-rank');
 			var requirement = $(this).attr('data-requirement');
 			var desc = "";
@@ -173,15 +184,5 @@ block script
 					break;
 				}
 			}
-			alert(rank +": "+ requirement +"\n"+ desc);
-		})
-		
-		
-		//- 
-		//- record.members.forEach(function(_boy_) {
-		//- 	_boy_.ranks.forEach(function(_rank_) {
-		//- 		_rank_.forEach(function(_requirement_) {
-		//- 			$('[data-owner="'+ _boy_ +'"] [data-rank="'+ _rank_ +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
-		//- 		});
-		//- 	});
-		//- });
+			$('#modalWindow .rank-content').html(desc);
+		});
