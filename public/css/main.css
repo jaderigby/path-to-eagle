@@ -2604,6 +2604,9 @@ input[type="submit"][class^="icon-"] {
   transition: all 0.05s linear;
   -webkit-transition: all 0.05s linear;
   z-index: 2;
+} 
+.rank-content {
+	line-height: 1.6
 }
 .form-switch-widget [type="checkbox"]:not(:checked) + label:after {
   -webkit-transform: translateX(0px);
