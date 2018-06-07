@@ -4,6 +4,7 @@
 // Declare all fonts first
 fonts(open-sans)
 fonts(play)
+fonts(source-sans-pro)
 fonts(blockletter)
 iconfont()
 // Now declare global reset and all dependencies: base, headings, forms, etc
@@ -37,6 +38,51 @@ h6
 
 segment = 269
 
+.special .panel
+	padding-top: 55px
+
+#branding
+	position: relative
+	margin: 0 auto 110px
+	width: 440px
+	img
+		position: absolute
+		left: 0
+		right: 0
+		top: -43px
+		margin: auto
+		width: 145px
+		opacity: 0.06
+		z-index: 1
+
+#troop
+	position: relative
+	float: left
+	font-family: source-sans-pro
+	font-weight: 700
+	font-size: 5rem
+	color: #cacaca
+	width: 213px
+	z-index: 2
+
+#troopClassifiers
+	position: relative
+	float: left
+	z-index: 2
+
+#troopNumber
+	margin-top: 6px
+	font-family: open-sans
+	font-weight: 800
+	color: #7d7d7d
+	font-size: 2.6rem
+
+#tagline
+	font-family: open-sans
+	color: #5e5e5e
+	font-size: 1.7rem
+	color: #6f97b1
+
 .modal.window
 	height: 45% !important
 
@@ -60,6 +106,7 @@ h3 .semi
 	font-weight: 600
 
 #scoutWrapper
+	position: relative
 	float: left
 	width: 120px
 	margin-bottom: 60px
@@ -68,7 +115,8 @@ h3 .semi
 	float: left
 	position: relative
 	overflow-x: auto
-	width: 800px
+	width: 890px
+	z-index: 1
 	// box-shadow: inset -30px 10px 95px -6px rgba(0,0,0,0.1)
 
 #rankWrapper
@@ -173,7 +221,15 @@ h3 .semi
 .shadow-progress-bar
 	transition: all 0.17s ease-in-out
 
-#progressWrapper
+#shadowCast
+	position: relative
+	float: left
+	height: 390px
+	// width: 80px
+	// margin-left: -80px
+	margin-left: -8px
+	// background: url(/images/shadow-tile.png) repeat-y
+	z-index: 10
 	border-right: 8px solid #f3f3f3
 	// box-shadow: inset -13px 0 35px rgba(0,0,0,0.06)
 
@@ -190,7 +246,9 @@ h3 .semi
 	opacity: 1
 
 #keysTrigger
-	position: relative
+	position: absolute
+	top: -40px
+	right: 10px
 	width: 26px
 	height: 20px
 	padding-top: 6px
@@ -220,6 +278,11 @@ h3 .semi
 #keysTrigger.show:after
 	border-color: #1f78ec
 
+.rank-content
+	line-height: 1.6
+
+.close-modal
+	color: #1f78ec
 
 // #progressWrapper:after
 // 	content: ""

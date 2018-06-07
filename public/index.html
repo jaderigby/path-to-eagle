@@ -3,7 +3,7 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="/css/main-0.0.1.css">
+    <link rel="stylesheet" type="text/css" href="/css/main.css">
     <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon">
   </head>
   <body>
@@ -39,10 +39,21 @@
             </li>
           </ul>
         </nav>
-                  <div class="panel-wrap light cf">
+                  <div class="panel-wrap special light cf">
                     <section class="panel">
-                      <div id="keysTrigger">?</div>
+                      <div id="branding" class="cf"><img src="/images/boy-scout-logo.jpg">
+                        <div id="troop">Troop</div>
+                        <div id="troopClassifiers">
+                          <div id="troopNumber">1524</div>
+                          <div id="tagline">Nepali Boy Scouts</div>
+                        </div>
+                      </div>
+                      <div id="modalWindow" class="modal window">
+                        <h3> </h3>
+                        <div class="rank-content"></div>
+                      </div>
                       <div id="scoutWrapper">
+                        <div id="keysTrigger">?</div>
                                   <div class="scout">
                                     <div data-name="Praval" class="name">Praval</div>
                                   </div>
@@ -76,13 +87,13 @@
                                     <div data-owner="Shishant" class="shadow-progress-bar"></div>
                         </div>
                         <div id="barsWrapper">
-                                    <div data-owner="Praval" class="progress-bar cf"></div>
-                                    <div data-owner="Romil" class="progress-bar cf"></div>
-                                    <div data-owner="Thirtha" class="progress-bar cf"></div>
-                                    <div data-owner="Ashis" class="progress-bar cf"></div>
-                                    <div data-owner="Raja" class="progress-bar cf"></div>
-                                    <div data-owner="Aiman" class="progress-bar cf"></div>
-                                    <div data-owner="Shishant" class="progress-bar cf"></div>
+                                    <div data-owner="Praval" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Romil" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Thirtha" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Ashis" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Raja" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Aiman" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Shishant" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
                         </div>
                         <div id="rankWrapper" class="cf">
                                     <div data-lane="Scout" class="rank">
@@ -136,8 +147,8 @@
   	messagingSenderId: "331583012361"
   };
   firebase.initializeApp(config);
-
-
+  
+  
   $('.scout .name').click(function(e) {
   	if ($(this).hasClass('selected')) {
   		$(this).removeClass('selected');
@@ -155,7 +166,7 @@
   $('form').each(function() {
   	magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
   });
-
+  
   function sortKeys(obj) {
   	var ordered = {};
   	Object.keys(obj).sort().forEach(function(key) {
@@ -163,7 +174,7 @@
   	});
   	return ordered;
   }
-
+  
   Object.size = function(obj) {
   	var size = 0, key;
   	for (key in obj) {
@@ -171,10 +182,10 @@
   	}
   	return size;
   };
-
+  
   function compare(a,b) {
   	let comparison = 0, x, y;
-
+  
   	if (a.match(/[a-z]/i) && b.match(/[a-z]/i)) {
   		x = a;
   		y = b;
@@ -183,16 +194,16 @@
   		x = parseInt(a.replace(/[a-z]/g, ''));
   		y = parseInt(b.replace(/[a-z]/g, ''));
   	}
-
+  
   	if (x > y) {
   		comparison = 1;
   	} else if (y > x) {
   		comparison = -1;
   	}
-
+  
   	return comparison;
   }
-
+  
   function initBarFragments() {
   	var progressBarBuild = [];
   	record.ranks.forEach(function(_rank_) {
@@ -207,12 +218,12 @@
   		//- console.log(requirementsList);
   		//- console.log("after: ", requirementsList);
   		requirementsList.forEach(function(_requirement_) {
-  			progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment" data-rank="${_rank_.name}" data-requirement="${_requirement_}"><div class="label">${_requirement_}</div></div>`);
+  			progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment modal trigger" data-trigger="modalWindow" data-rank="${_rank_.name}" data-requirement="${_requirement_}"><div class="label">${_requirement_}</div></div>`);
   		})
   	});
   	return progressBarBuild;
   }
-
+  
   function initMemberBars(memberBarList) {
   	record.members.forEach(function(_boy_) {
   		memberBarList.forEach(function(_fragment_) {
@@ -220,7 +231,7 @@
   		});
   	});
   }
-
+  
   function initMarkedBars() {
   	record.members.forEach(function(_boy_) {
   		_boy_.ranks.forEach(function(_rank_) {
@@ -232,7 +243,7 @@
   		});
   	});
   }
-
+  
   function initRankSeparators() {
   	var total = 0;
   	record.ranks.forEach(function(_rank_) {
@@ -247,14 +258,21 @@
   	$('#rankWrapper').css('width', total + 0 + "px");
   	$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
   }
-
+  
   var barFragments = initBarFragments();
   //- console.log(barFragments);
   initMemberBars(barFragments);
   initMarkedBars();
   initRankSeparators();
-
-  $('#barsWrapper').delegate('.selected .fragment', 'click', function(e) {
+  
+  $('#keysTrigger').click(function() {
+  	$(this).toggleClass('show');
+  	$('#progressWrapper').toggleClass('show-keys');
+  });
+  
+  $('#progressWrapper').delegate('.selected .fragment', 'click', function() {
+  	var titleLayout = $(this).attr('data-rank') +' <span class="semi">'+ $(this).attr('data-requirement') +'</span>';
+  	$('#modalWindow h3').html(titleLayout);
   	var rank = $(this).attr('data-rank');
   	var requirement = $(this).attr('data-requirement');
   	var desc = "";
@@ -264,21 +282,6 @@
   			break;
   		}
   	}
-  	alert(rank +": "+ requirement +"\n"+ desc);
-  })
-
-  $('#keysTrigger').click(function() {
-  	$(this).toggleClass('show');
-  	$('#progressWrapper').toggleClass('show-keys');
+  	$('#modalWindow .rank-content').html(desc);
   });
-
-
-  //-
-  //- record.members.forEach(function(_boy_) {
-  //- 	_boy_.ranks.forEach(function(_rank_) {
-  //- 		_rank_.forEach(function(_requirement_) {
-  //- 			$('[data-owner="'+ _boy_ +'"] [data-rank="'+ _rank_ +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
-  //- 		});
-  //- 	});
-  //- });
 </script>

@@ -1,5 +1,6 @@
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800);
 @import url('http://fonts.googleapis.com/css?family=Play:400,700');
+@import url(https://fonts.googleapis.com/css?family=Source+Sans+Pro:200,300,400,600,700,900,200italic,300italic,400italic,600italic,700italic,900italic);
 
 			@font-face {
 				font-family: 'blockletter';
@@ -5790,6 +5791,54 @@ h6 {
 #siteWrapper {
   background-color: #fff;
 }
+.special .panel {
+  padding-top: 55px;
+}
+#branding {
+  position: relative;
+  margin: 0 auto 110px;
+  width: 440px;
+}
+#branding img {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: -43px;
+  margin: auto;
+  width: 145px;
+  opacity: 0.06;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=6)";
+  filter: alpha(opacity=6);
+  z-index: 1;
+}
+#troop {
+  position: relative;
+  float: left;
+  font-family: "Source Sans Pro", Helvetica, Arial, Verdana, sans-serif;
+  font-weight: 700;
+  font-size: 5rem;
+  color: #cacaca;
+  width: 213px;
+  z-index: 2;
+}
+#troopClassifiers {
+  position: relative;
+  float: left;
+  z-index: 2;
+}
+#troopNumber {
+  margin-top: 6px;
+  font-family: "Open Sans", Verdana, Helvetica, sans-serif;
+  font-weight: 800;
+  color: #7d7d7d;
+  font-size: 2.6rem;
+}
+#tagline {
+  font-family: "Open Sans", Verdana, Helvetica, sans-serif;
+  color: #5e5e5e;
+  font-size: 1.7rem;
+  color: #6f97b1;
+}
 .modal.window {
   height: 45% !important;
 }
@@ -5812,6 +5861,7 @@ h3 .semi {
   font-weight: 600;
 }
 #scoutWrapper {
+  position: relative;
   float: left;
   width: 120px;
   margin-bottom: 60px;
@@ -5820,7 +5870,8 @@ h3 .semi {
   float: left;
   position: relative;
   overflow-x: auto;
-  width: 800px;
+  width: 890px;
+  z-index: 1;
 }
 #rankWrapper {
   position: absolute;
@@ -5934,7 +5985,12 @@ h3 .semi {
   -ms-transition: all 0.17s ease-in-out;
   transition: all 0.17s ease-in-out;
 }
-#progressWrapper {
+#shadowCast {
+  position: relative;
+  float: left;
+  height: 390px;
+  margin-left: -8px;
+  z-index: 10;
   border-right: 8px solid #f3f3f3;
 }
 .label {
@@ -5958,7 +6014,9 @@ h3 .semi {
   filter: none;
 }
 #keysTrigger {
-  position: relative;
+  position: absolute;
+  top: -40px;
+  right: 10px;
   width: 26px;
   height: 20px;
   padding-top: 6px;
@@ -5995,6 +6053,12 @@ h3 .semi {
 }
 #keysTrigger.show:after {
   border-color: #1f78ec;
+}
+.rank-content {
+  line-height: 1.6;
+}
+.close-modal {
+  color: #1f78ec;
 }
 .cf:after {
   content: "";

@@ -1,11 +1,17 @@
 extend __core__/default
 block content
-	+panel().light.cf
+	+panel().special.light.cf
+		//- div#branding.cf
+		//- 	img(src="/images/boy-scout-logo.jpg")
+		//- 	div#troop Troop
+		//- 	div#troopClassifiers
+		//- 		div#troopNumber 1524
+		//- 		div#tagline Nepali Boy Scouts
 		div#modalWindow.modal.window
-			h3
+			h3 
 			div.rank-content
-		div#keysTrigger ?
 		div#scoutWrapper
+			div#keysTrigger ?
 			- var scoutName = ["Praval", "Romil", "Thirtha", "Ashis", "Raja", "Aiman", "Shishant"]
 			- var i = 0
 			- var count = scoutName.length
@@ -34,6 +40,7 @@ block content
 					div.rank(data-lane= rankName[x])
 						h4.center-justify= rankName[x]
 						- x++, a++
+		div#shadowCast
 	+panel().dark.footer
 block script
 	script(src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js")
@@ -157,7 +164,7 @@ block script
 						return calcWidth + "px";
 						});
 				});
-			$('#rankWrapper').css('width', total + 0 + "px");
+			$('#rankWrapper').css('width', total + 8 + "px");
 			$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
 		}
 		
