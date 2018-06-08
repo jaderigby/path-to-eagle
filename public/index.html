@@ -16,6 +16,8 @@
             </li>
             <li><a href="/">Home</a>
             </li>
+            <li class="logged-out-view"><a data-target="loginModal" class="modal trigger">Login</a></li>
+            <li class="logged-in-view"><a data-target="logoutModal" class="modal trigger">Logout</a></li>
           </ul>
         </div>
       </nav>
@@ -37,22 +39,59 @@
             </li>
             <li><a href="/">Home</a>
             </li>
+            <li class="logged-out-view"><a data-target="loginModal" class="modal trigger">Login</a></li>
+            <li class="logged-in-view"><a data-target="logoutModal" class="modal trigger">Logout</a></li>
           </ul>
         </nav>
                   <div class="panel-wrap special light cf">
                     <section class="panel">
-                      <div id="branding" class="cf"><img src="/images/boy-scout-logo.jpg">
-                        <div id="troop">Troop</div>
-                        <div id="troopClassifiers">
-                          <div id="troopNumber">1524</div>
-                          <div id="tagline">Nepali Boy Scouts</div>
+                      <div id="loginModal" class="modal window">
+                        <div class="wrap access-form">
+                          <form id="login" class="logged-out-view">
+                            <h3>Login</h3>
+                                      <div class="form-element">
+                                        <input type="email" data-validate="email" data-required="">
+                                        <label>Email</label>
+                                      </div>
+                                      <div class="form-element">
+                                        <input type="password" data-required="">
+                                        <label>Password</label>
+                                      </div>
+                            <p class="right-justify"><a class="submit logged-out-view button">Login</a>
+                            </p>
+                          </form>
+                          <div class="logged-in-view">
+                            <p class="center-justify">Congratulations!  You are now logged in.</p>
+                          </div>
+                          <p class="logged-in-view center-justify"><a class="close-modal-alt button">Close</a>
+                          </p>
+                        </div>
+                      </div>
+                      <div id="logoutModal" class="modal window">
+                        <div class="wrap logged-in-view">
+                          <p class="center-justify">Are you sure that you want to log out?</p>
+                          <p class="center-justify"><a class="logout button">Confirm</a>
+                          </p>
+                        </div>
+                        <div class="wrap logged-out-view">
+                          <p class="center-justify">You are successfully logged out!</p>
+                          <p class="center-justify"><a class="close-modal-alt button">Close</a>
+                          </p>
                         </div>
                       </div>
                       <div id="modalWindow" class="modal window">
-                        <h3> </h3>
-                        <div class="rank-content"></div>
+                                  <div class="segment half">
+                                              <div class="segment-max">
+                                                <h3> </h3>
+                                              </div>
+                                              <div class="segment-min">
+                                                <div class="requirement-status"></div>
+                                              </div>
+                                    <div class="rank-content"></div>
+                                  </div>
                       </div>
                       <div id="scoutWrapper">
+                        <div id="selectAll">Batch</div>
                         <div id="keysTrigger">?</div>
                                   <div class="scout">
                                     <div data-name="Praval" class="name">Praval</div>
@@ -75,6 +114,9 @@
                                   <div class="scout">
                                     <div data-name="Shishant" class="name">Shishant</div>
                                   </div>
+                                  <div class="scout">
+                                    <div data-name="Samuel" class="name">Samuel</div>
+                                  </div>
                       </div>
                       <div id="progressWrapper">
                         <div id="shadowBarsWrapper">
@@ -85,6 +127,7 @@
                                     <div data-owner="Raja" class="shadow-progress-bar"></div>
                                     <div data-owner="Aiman" class="shadow-progress-bar"></div>
                                     <div data-owner="Shishant" class="shadow-progress-bar"></div>
+                                    <div data-owner="Samuel" class="shadow-progress-bar"></div>
                         </div>
                         <div id="barsWrapper">
                                     <div data-owner="Praval" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
@@ -94,6 +137,7 @@
                                     <div data-owner="Raja" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
                                     <div data-owner="Aiman" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
                                     <div data-owner="Shishant" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
+                                    <div data-owner="Samuel" data-target="modalWindow" class="progress-bar modal trigger cf"></div>
                         </div>
                         <div id="rankWrapper" class="cf">
                                     <div data-lane="Scout" class="rank">
@@ -119,6 +163,7 @@
                                     </div>
                         </div>
                       </div>
+                      <div id="shadowCast"></div>
                     </section>
                   </div>
                   <div class="panel-wrap dark footer">
@@ -127,161 +172,165 @@
                   </div>
       </div>
     </div>
+    <div class="footer-nav"></div>
+    <script src="/js/jquery-1.11.1.min.js"></script>
+    <script src="/js/TweenMax.min.js"></script>
+    <script src="/js/main.lib.js"></script>
+    <script src="/js/magicVial-0.6.2.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.0.4/firebase-database.js"></script>
+    <script src="/js/firebase-init.js"></script>
+    <script src="/js/app.js"></script>
+    <script src="/js/scout-record-0.0.3.js"></script>
+    <script>
+      magicVial('form#signup', "Sorry, please fix the errors below.");
+      
+      $('form#signup [type="submit"]').click((e) => {
+      	e.preventDefault();
+      	var email = $('form#signup [type="email"]').val();
+      	var password = $('form#signup [type="password"]').val();
+      	firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+      		// Handle Errors here.
+      		var errorCode = error.code;
+      		var errorMessage = error.message;
+      		if (error.code) {
+      			alert("You have an error!");
+      		}
+      	});
+      });
+      
+      
+      $('.scout .name').click(function(e) {
+      	if ($('#selectAll').hasClass('show')) {
+      		$('#selectAll').removeClass('show');
+      		$('.scout .name').removeClass('selected');
+      		$('.shadow-progress-bar').removeClass('selected');
+      		$('.progress-bar').removeClass('selected');
+      		$(this).addClass('selected');
+      		$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
+      	}
+      	else if ($(this).hasClass('selected')) {
+      		$(this).removeClass('selected');
+      		$('.shadow-progress-bar').removeClass('selected');
+      		$('.progress-bar').removeClass('selected');
+      	}
+      	else {
+      		$('.scout .name').removeClass('selected');
+      		$('.shadow-progress-bar').removeClass('selected');
+      		$('.progress-bar').removeClass('selected');
+      		$(this).addClass('selected');
+      		$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
+      	}
+      });
+      $('#selectAll').click(function() {
+      	if ($(this).hasClass('show') && $('.scout .name.selected').length > 0) {
+      		$(this).removeClass('show');
+      		$('.scout .name').removeClass('selected');
+      		$('.shadow-progress-bar').removeClass('selected');
+      		$('.progress-bar').removeClass('selected');
+      	}
+      	else {
+      		$(this).addClass('show');
+      		$('.scout .name').addClass('selected');
+      		$('.shadow-progress-bar').addClass('selected');
+      		$('.progress-bar').addClass('selected');
+      	}
+      });
+      
+      $('form').each(function() {
+      	magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
+      });
+      
+      function sortKeys(obj) {
+      	var ordered = {};
+      	Object.keys(obj).sort().forEach(function(key) {
+      		ordered[key] = obj[key];
+      	});
+      	return ordered;
+      }
+      
+      Object.size = function(obj) {
+      	var size = 0, key;
+      	for (key in obj) {
+      		if (obj.hasOwnProperty(key)) size++;
+      	}
+      	return size;
+      };
+      
+      function compare(a,b) {
+      	let comparison = 0, x, y;
+      
+      	if (a.match(/[a-z]/i) && b.match(/[a-z]/i)) {
+      		x = a;
+      		y = b;
+      	}
+      	else {
+      		x = parseInt(a.replace(/[a-z]/g, ''));
+      		y = parseInt(b.replace(/[a-z]/g, ''));
+      	}
+      
+      	if (x > y) {
+      		comparison = 1;
+      	} else if (y > x) {
+      		comparison = -1;
+      	}
+      
+      	return comparison;
+      }
+      
+      $('#keysTrigger').click(function() {
+      	$(this).toggleClass('show');
+      	$('#progressWrapper').toggleClass('show-keys');
+      });
+      
+      $('.modal-trigger').not('.completed').click(function() {
+      	e.preventDefault();
+      });
+      
+      $('#progressWrapper').delegate('.fragment', 'click', function(e) {
+      	var owner = $(this).parent().attr('data-owner');
+      	var rank = $(this).attr('data-rank');
+      	var requirement = $(this).attr('data-requirement');
+      	$('#modalWindow .requirement-status').attr('data-owner', owner);
+      	$('#modalWindow .requirement-status').attr('data-rank', rank);
+      	$('#modalWindow .requirement-status').attr('data-requirement', requirement);
+      	$('#modalWindow .requirement-status').removeClass('has-completed');
+      	$('#modalWindow .requirement-status').text('Mark as completed');
+      	if ($(this).hasClass('completed')) {
+      		$('#modalWindow .requirement-status').addClass('has-completed');
+      		$('#modalWindow .requirement-status').text('Completed');
+      	}
+      	var titleLayout = $(this).attr('data-rank') +' <span class="semi">'+ $(this).attr('data-requirement') +'</span>';
+      	$('#modalWindow h3').html(titleLayout);
+      	var desc = "";
+      	for (var i = 0; i < record.ranks.length; i++) {
+      		if (record.ranks[i].name === rank) {
+      			desc = record.ranks[i].requirements[requirement];
+      			break;
+      		}
+      	}
+      	$('#modalWindow .rank-content').html(desc);
+      	if ($('#selectAll').hasClass('show')) {
+      		if ($(this).hasClass('completed')) {
+      			$(this).removeClass('completed');
+      		}
+      		else {
+      			$(this).addClass('completed');
+      		}
+      		toggleRequirement(window.dataObj, owner, rank, requirement);
+      		writeUserData(window.database, window.dataObj);
+      	}
+      });
+      
+      //- $('body').delegate('.requirement-status', 'click', function() {
+      //- 	console.log('tesdting')
+      //- 	if (!$(this).not('.has-completed')) {
+      //- 		$(this).addClass('has-completed');
+      //- 		$(this).text('Completed');
+      //- 	}
+      //- });
+    </script>
   </body>
 </html>
-<div class="footer-nav"></div>
-<script src="/js/jquery-1.11.1.min.js"></script>
-<script src="/js/TweenMax.min.js"></script>
-<script src="/js/main.lib.js"></script>
-<script src="/js/magicVial-0.6.2.js"></script>
-<script src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js"></script>
-<script src="/js/scout-record-0.0.1.js"></script>
-<script>
-  // Initialize Firebase
-  var config = {
-  	apiKey: "AIzaSyDX2dGX41G6pEKq4AOjnM4sdrVMs0bGJzM",
-  	authDomain: "path-to-eagle.firebaseapp.com",
-  	databaseURL: "https://path-to-eagle.firebaseio.com",
-  	projectId: "path-to-eagle",
-  	storageBucket: "path-to-eagle.appspot.com",
-  	messagingSenderId: "331583012361"
-  };
-  firebase.initializeApp(config);
-  
-  
-  $('.scout .name').click(function(e) {
-  	if ($(this).hasClass('selected')) {
-  		$(this).removeClass('selected');
-  		$('.shadow-progress-bar').removeClass('selected');
-  		$('.progress-bar').removeClass('selected');
-  	}
-  	else {
-  		$('.scout .name').removeClass('selected');
-  		$('.shadow-progress-bar').removeClass('selected');
-  		$('.progress-bar').removeClass('selected');
-  		$(this).addClass('selected');
-  		$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
-  	}
-  });
-  $('form').each(function() {
-  	magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
-  });
-  
-  function sortKeys(obj) {
-  	var ordered = {};
-  	Object.keys(obj).sort().forEach(function(key) {
-  		ordered[key] = obj[key];
-  	});
-  	return ordered;
-  }
-  
-  Object.size = function(obj) {
-  	var size = 0, key;
-  	for (key in obj) {
-  		if (obj.hasOwnProperty(key)) size++;
-  	}
-  	return size;
-  };
-  
-  function compare(a,b) {
-  	let comparison = 0, x, y;
-  
-  	if (a.match(/[a-z]/i) && b.match(/[a-z]/i)) {
-  		x = a;
-  		y = b;
-  	}
-  	else {
-  		x = parseInt(a.replace(/[a-z]/g, ''));
-  		y = parseInt(b.replace(/[a-z]/g, ''));
-  	}
-  
-  	if (x > y) {
-  		comparison = 1;
-  	} else if (y > x) {
-  		comparison = -1;
-  	}
-  
-  	return comparison;
-  }
-  
-  function initBarFragments() {
-  	var progressBarBuild = [];
-  	record.ranks.forEach(function(_rank_) {
-  		var size = Object.keys(_rank_.requirements).length;
-  		var fragmentWidth = 15;
-  		var requirementsList = [];
-  		for (var key in _rank_.requirements) {
-  			requirementsList.push(key);
-  		}
-  		//- console.log("before: ", requirementsList);
-  		requirementsList.sort(compare);
-  		//- console.log(requirementsList);
-  		//- console.log("after: ", requirementsList);
-  		requirementsList.forEach(function(_requirement_) {
-  			progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment modal trigger" data-trigger="modalWindow" data-rank="${_rank_.name}" data-requirement="${_requirement_}"><div class="label">${_requirement_}</div></div>`);
-  		})
-  	});
-  	return progressBarBuild;
-  }
-  
-  function initMemberBars(memberBarList) {
-  	record.members.forEach(function(_boy_) {
-  		memberBarList.forEach(function(_fragment_) {
-  			$('[data-owner="'+ _boy_.name +'"].progress-bar').append(_fragment_);
-  		});
-  	});
-  }
-  
-  function initMarkedBars() {
-  	record.members.forEach(function(_boy_) {
-  		_boy_.ranks.forEach(function(_rank_) {
-  			//- console.log(_rank_.requirements);
-  			_rank_.requirements.forEach(function(_requirement_) {
-  				//- console.log("name: ", _boy_.name, " rank: ", _rank_.name, "completed: ", _requirement_);
-  				$('[data-owner="'+ _boy_.name +'"] [data-rank="'+ _rank_.name +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
-  			});
-  		});
-  	});
-  }
-  
-  function initRankSeparators() {
-  	var total = 0;
-  	record.ranks.forEach(function(_rank_) {
-  			$('[data-lane="'+ _rank_.name +'"]').css('width', function() {
-  				//- console.log(_rank_.requirements);
-  				var size = Object.size(_rank_.requirements);
-  				var calcWidth = 15 * size;
-  				total += calcWidth;
-  				return calcWidth + "px";
-  				});
-  		});
-  	$('#rankWrapper').css('width', total + 0 + "px");
-  	$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
-  }
-  
-  var barFragments = initBarFragments();
-  //- console.log(barFragments);
-  initMemberBars(barFragments);
-  initMarkedBars();
-  initRankSeparators();
-  
-  $('#keysTrigger').click(function() {
-  	$(this).toggleClass('show');
-  	$('#progressWrapper').toggleClass('show-keys');
-  });
-  
-  $('#progressWrapper').delegate('.selected .fragment', 'click', function() {
-  	var titleLayout = $(this).attr('data-rank') +' <span class="semi">'+ $(this).attr('data-requirement') +'</span>';
-  	$('#modalWindow h3').html(titleLayout);
-  	var rank = $(this).attr('data-rank');
-  	var requirement = $(this).attr('data-requirement');
-  	var desc = "";
-  	for (var i = 0; i < record.ranks.length; i++) {
-  		if (record.ranks[i].name === rank) {
-  			desc = record.ranks[i].requirements[requirement];
-  			break;
-  		}
-  	}
-  	$('#modalWindow .rank-content').html(desc);
-  });
-</script>

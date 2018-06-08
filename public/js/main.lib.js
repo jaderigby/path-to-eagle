@@ -304,23 +304,43 @@ function resetModal() {
 initModals();
 
 $('.modal.trigger').parent().delegate('.modal.trigger', 'click', function() {
-	var myModal = '#' + ($(this).data('target'));
-	var scrollTop = $(window).scrollTop();
-	$('#overlay').show();
-	$('#modalViewport').show();
-	$('#overlay').animate({
-		top: 0,
-		opacity: 1
-	}, 280);
-	$(myModal).show();
-	TweenMax.to(myModal, 0.3, {
-		opacity: 1,
-		scale: 1,
-		ease: Power2.easeOut
-	});
+	if ($(this).parents('#progressWrapper').length == 1) {
+		if (!$('#selectAll').hasClass('show') && $(this).hasClass('selected')) {
+			var myModal = '#' + ($(this).data('target'));
+			var scrollTop = $(window).scrollTop();
+			$('#overlay').show();
+			$('#modalViewport').show();
+			$('#overlay').animate({
+				top: 0,
+				opacity: 1
+			}, 280);
+			$(myModal).show();
+			TweenMax.to(myModal, 0.3, {
+				opacity: 1,
+				scale: 1,
+				ease: Power2.easeOut
+			});
+		}
+	}
+	else {
+		var myModal = '#' + ($(this).data('target'));
+		var scrollTop = $(window).scrollTop();
+		$('#overlay').show();
+		$('#modalViewport').show();
+		$('#overlay').animate({
+			top: 0,
+			opacity: 1
+		}, 280);
+		$(myModal).show();
+		TweenMax.to(myModal, 0.3, {
+			opacity: 1,
+			scale: 1,
+			ease: Power2.easeOut
+		});
+	}
 });
 
-$('.modal.window').delegate('.close-modal', 'click', function() {
+$('.modal.window').delegate('.close-modal, .close-modal-alt', 'click', function() {
 	$('#overlay').animate({
 		top: 0,
 		opacity: 0

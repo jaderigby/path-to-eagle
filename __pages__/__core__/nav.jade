@@ -2,3 +2,5 @@ include ../../template_files/jade/widgets/elements
 ul
 	li: +logo("Path To Eagle")
 	li: +link("Home")
+	li.logged-out-view: a.modal.trigger(data-target="loginModal") Login
+	li.logged-in-view: a.modal.trigger(data-target="logoutModal") Logout

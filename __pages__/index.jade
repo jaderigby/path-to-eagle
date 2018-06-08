@@ -7,12 +7,38 @@ block content
 		//- 	div#troopClassifiers
 		//- 		div#troopNumber 1524
 		//- 		div#tagline Nepali Boy Scouts
+		div#loginModal.modal.window
+			div.wrap.access-form
+				form#login.logged-out-view
+					h3 Login
+					+email("Email", "required")
+					+password("Password", "required")
+					p.right-justify
+						+button("Login").submit.logged-out-view
+				div.logged-in-view
+					p.center-justify Congratulations!  You are now logged in.
+				p.logged-in-view.center-justify
+					+button("Close").close-modal-alt
+		div#logoutModal.modal.window
+			div.wrap.logged-in-view
+				p.center-justify Are you sure that you want to log out?
+				p.center-justify
+					+button("Confirm").logout
+			div.wrap.logged-out-view
+				p.center-justify You are successfully logged out!
+				p.center-justify
+					+button("Close").close-modal-alt
 		div#modalWindow.modal.window
-			h3 
-			div.rank-content
+			+seg().half
+				+max()
+					h3 
+				+min()
+					div.requirement-status
+				div.rank-content
 		div#scoutWrapper
+			div#selectAll Batch
 			div#keysTrigger ?
-			- var scoutName = ["Praval", "Romil", "Thirtha", "Ashis", "Raja", "Aiman", "Shishant"]
+			- var scoutName = ["Praval", "Romil", "Thirtha", "Ashis", "Raja", "Aiman", "Shishant", "Samuel"]
 			- var i = 0
 			- var count = scoutName.length
 			+loop(count)
@@ -43,23 +69,35 @@ block content
 		div#shadowCast
 	+panel().dark.footer
 block script
-	script(src="https://www.gstatic.com/firebasejs/5.0.4/firebase.js")
-	script(src="/js/scout-record-0.0.1.js")
+	script(src="/js/scout-record-0.0.3.js")
 	script.
-		// Initialize Firebase
-		var config = {
-			apiKey: "AIzaSyDX2dGX41G6pEKq4AOjnM4sdrVMs0bGJzM",
-			authDomain: "path-to-eagle.firebaseapp.com",
-			databaseURL: "https://path-to-eagle.firebaseio.com",
-			projectId: "path-to-eagle",
-			storageBucket: "path-to-eagle.appspot.com",
-			messagingSenderId: "331583012361"
-		};
-		firebase.initializeApp(config);
+		magicVial('form#signup', "Sorry, please fix the errors below.");
+		
+		$('form#signup [type="submit"]').click((e) => {
+			e.preventDefault();
+			var email = $('form#signup [type="email"]').val();
+			var password = $('form#signup [type="password"]').val();
+			firebase.auth().createUserWithEmailAndPassword(email, password).catch(function(error) {
+				// Handle Errors here.
+				var errorCode = error.code;
+				var errorMessage = error.message;
+				if (error.code) {
+					alert("You have an error!");
+				}
+			});
+		});
 		
 		
 		$('.scout .name').click(function(e) {
-			if ($(this).hasClass('selected')) {
+			if ($('#selectAll').hasClass('show')) {
+				$('#selectAll').removeClass('show');
+				$('.scout .name').removeClass('selected');
+				$('.shadow-progress-bar').removeClass('selected');
+				$('.progress-bar').removeClass('selected');
+				$(this).addClass('selected');
+				$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
+			}
+			else if ($(this).hasClass('selected')) {
 				$(this).removeClass('selected');
 				$('.shadow-progress-bar').removeClass('selected');
 				$('.progress-bar').removeClass('selected');
@@ -72,6 +110,21 @@ block script
 				$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
 			}
 		});
+		$('#selectAll').click(function() {
+			if ($(this).hasClass('show') && $('.scout .name.selected').length > 0) {
+				$(this).removeClass('show');
+				$('.scout .name').removeClass('selected');
+				$('.shadow-progress-bar').removeClass('selected');
+				$('.progress-bar').removeClass('selected');
+			}
+			else {
+				$(this).addClass('show');
+				$('.scout .name').addClass('selected');
+				$('.shadow-progress-bar').addClass('selected');
+				$('.progress-bar').addClass('selected');
+			}
+		});
+		
 		$('form').each(function() {
 			magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
 		});
@@ -113,77 +166,30 @@ block script
 			return comparison;
 		}
 		
-		function initBarFragments() {
-			var progressBarBuild = [];
-			record.ranks.forEach(function(_rank_) {
-				var size = Object.keys(_rank_.requirements).length;
-				var fragmentWidth = 15;
-				var requirementsList = [];
-				for (var key in _rank_.requirements) {
-					requirementsList.push(key);
-				}
-				//- console.log("before: ", requirementsList);
-				requirementsList.sort(compare);
-				//- console.log(requirementsList);
-				//- console.log("after: ", requirementsList);
-				requirementsList.forEach(function(_requirement_) {
-					progressBarBuild.push(`<div style="width: ${fragmentWidth}px" class="fragment modal trigger" data-trigger="modalWindow" data-rank="${_rank_.name}" data-requirement="${_requirement_}"><div class="label">${_requirement_}</div></div>`);
-				})
-			});
-			return progressBarBuild;
-		}
-
-		function initMemberBars(memberBarList) {
-			record.members.forEach(function(_boy_) {
-				memberBarList.forEach(function(_fragment_) {
-					$('[data-owner="'+ _boy_.name +'"].progress-bar').append(_fragment_);
-				});
-			});
-		}
-		
-		function initMarkedBars() {
-			record.members.forEach(function(_boy_) {
-				_boy_.ranks.forEach(function(_rank_) {
-					//- console.log(_rank_.requirements);
-					_rank_.requirements.forEach(function(_requirement_) {
-						//- console.log("name: ", _boy_.name, " rank: ", _rank_.name, "completed: ", _requirement_);
-						$('[data-owner="'+ _boy_.name +'"] [data-rank="'+ _rank_.name +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
-					});
-				});
-			});
-		}
-		
-		function initRankSeparators() {
-			var total = 0;
-			record.ranks.forEach(function(_rank_) {
-					$('[data-lane="'+ _rank_.name +'"]').css('width', function() {
-						//- console.log(_rank_.requirements);
-						var size = Object.size(_rank_.requirements);
-						var calcWidth = 15 * size;
-						total += calcWidth;
-						return calcWidth + "px";
-						});
-				});
-			$('#rankWrapper').css('width', total + 8 + "px");
-			$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
-		}
-		
-		var barFragments = initBarFragments();
-		//- console.log(barFragments);
-		initMemberBars(barFragments);
-		initMarkedBars();
-		initRankSeparators();
-		
 		$('#keysTrigger').click(function() {
 			$(this).toggleClass('show');
 			$('#progressWrapper').toggleClass('show-keys');
 		});
 		
-		$('#progressWrapper').delegate('.selected .fragment', 'click', function() {
-			var titleLayout = $(this).attr('data-rank') +' <span class="semi">'+ $(this).attr('data-requirement') +'</span>';
-			$('#modalWindow h3').html(titleLayout);
+		$('.modal-trigger').not('.completed').click(function() {
+			e.preventDefault();
+		});
+		
+		$('#progressWrapper').delegate('.fragment', 'click', function(e) {
+			var owner = $(this).parent().attr('data-owner');
 			var rank = $(this).attr('data-rank');
 			var requirement = $(this).attr('data-requirement');
+			$('#modalWindow .requirement-status').attr('data-owner', owner);
+			$('#modalWindow .requirement-status').attr('data-rank', rank);
+			$('#modalWindow .requirement-status').attr('data-requirement', requirement);
+			$('#modalWindow .requirement-status').removeClass('has-completed');
+			$('#modalWindow .requirement-status').text('Mark as completed');
+			if ($(this).hasClass('completed')) {
+				$('#modalWindow .requirement-status').addClass('has-completed');
+				$('#modalWindow .requirement-status').text('Completed');
+			}
+			var titleLayout = $(this).attr('data-rank') +' <span class="semi">'+ $(this).attr('data-requirement') +'</span>';
+			$('#modalWindow h3').html(titleLayout);
 			var desc = "";
 			for (var i = 0; i < record.ranks.length; i++) {
 				if (record.ranks[i].name === rank) {
@@ -192,4 +198,22 @@ block script
 				}
 			}
 			$('#modalWindow .rank-content').html(desc);
+			if ($('#selectAll').hasClass('show')) {
+				if ($(this).hasClass('completed')) {
+					$(this).removeClass('completed');
+				}
+				else {
+					$(this).addClass('completed');
+				}
+				toggleRequirement(window.dataObj, owner, rank, requirement);
+				writeUserData(window.database, window.dataObj);
+			}
 		});
+		
+		//- $('body').delegate('.requirement-status', 'click', function() {
+		//- 	console.log('tesdting')
+		//- 	if (!$(this).not('.has-completed')) {
+		//- 		$(this).addClass('has-completed');
+		//- 		$(this).text('Completed');
+		//- 	}
+		//- });

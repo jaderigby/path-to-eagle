@@ -652,7 +652,6 @@ form.rack > div:last-child,
   margin-right: 0;
 }
 a.button {
-  margin-right: 5px;
   padding: 8px 25px;
   color: #efefef;
   font-size: 0.9rem;
@@ -820,14 +819,14 @@ h5 {
   line-height: 1.3;
 }
 .form-segment {
-  margin: 15px 0;
+  margin: 21px 0;
 }
 .form-segment .form-element {
   margin: 0;
 }
 .form-element {
   position: relative;
-  margin: 15px 0;
+  margin: 21px 0;
 }
 .form-element input[type="text"] + label,
 .form-element input[type="email"] + label,
@@ -870,25 +869,6 @@ h5 {
 .form-segment .form-element input[type="text"],
 .form-segment .form-element input[type="email"],
 .form-segment .form-element input[type="password"] {
-  -webkit-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -ms-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.form-element {
-  -webkit-transition: all 0.2s ease-out;
-  -moz-transition: all 0.2s ease-out;
-  -o-transition: all 0.2s ease-out;
-  -ms-transition: all 0.2s ease-out;
-  transition: all 0.2s ease-out;
-}
-.form-element.has-value {
-  margin-top: 25px;
-}
-.form-element input[type="text"],
-.form-element input[type="email"],
-.form-element input[type="password"] {
   -webkit-transition: all 0.2s ease-out;
   -moz-transition: all 0.2s ease-out;
   -o-transition: all 0.2s ease-out;
@@ -2604,9 +2584,6 @@ input[type="submit"][class^="icon-"] {
   transition: all 0.05s linear;
   -webkit-transition: all 0.05s linear;
   z-index: 2;
-} 
-.rank-content {
-	line-height: 1.6
 }
 .form-switch-widget [type="checkbox"]:not(:checked) + label:after {
   -webkit-transform: translateX(0px);
@@ -5853,6 +5830,9 @@ h6 {
 .rank h4 {
   font-size: 1.5rem;
 }
+.rank-content {
+  line-height: 1.6;
+}
 #modalWindow h3 {
   font-size: 1.4rem;
   margin-bottom: 20px;
@@ -5874,6 +5854,7 @@ h3 .semi {
   position: relative;
   overflow-x: auto;
   width: 890px;
+  z-index: 1;
 }
 #rankWrapper {
   position: absolute;
@@ -5905,7 +5886,7 @@ h3 .semi {
 .rank {
   position: relative;
   float: left;
-  height: 373px;
+  height: 424px;
   width: 269px;
 }
 .rank:after {
@@ -5987,7 +5968,12 @@ h3 .semi {
   -ms-transition: all 0.17s ease-in-out;
   transition: all 0.17s ease-in-out;
 }
-#progressWrapper {
+#shadowCast {
+  position: relative;
+  float: left;
+  height: 433px;
+  margin-left: -8px;
+  z-index: 10;
   border-right: 8px solid #f3f3f3;
 }
 .label {
@@ -6013,7 +5999,7 @@ h3 .semi {
 #keysTrigger {
   position: absolute;
   top: -40px;
-  right: 10px;
+  right: 4px;
   width: 26px;
   height: 20px;
   padding-top: 6px;
@@ -6050,6 +6036,47 @@ h3 .semi {
 }
 #keysTrigger.show:after {
   border-color: #1f78ec;
+}
+.rank-content {
+  line-height: 1.6;
+}
+.close-modal {
+  color: #1f78ec;
+}
+div.access-form {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 420px;
+}
+.logged-in-view {
+  display: none;
+}
+.requirement-status {
+  font-size: 0.8rem;
+  position: absolute;
+  right: 30px;
+  background-color: #cacaca;
+  padding: 5px 10px;
+  border-radius: 100px;
+  color: #fff;
+  top: 49px;
+  cursor: pointer;
+}
+.requirement-status.has-completed {
+  background-color: #1d79ec;
+}
+#selectAll {
+  position: absolute;
+  top: -38px;
+  left: 0;
+  padding: 4px 16px;
+  background-color: #ddd;
+  border-radius: 4px;
+  color: #fff;
+  cursor: pointer;
+}
+#selectAll.show {
+  background-color: #1f78ec;
 }
 .cf:after {
   content: "";

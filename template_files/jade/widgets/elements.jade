@@ -85,7 +85,7 @@ mixin button(nameValue, pos)
 	- 	nameValue.title = nameValue.title || "OK"
 	- 	nameValue.url = nameValue.url || "#"
 	- 	nameValue.position = nameValue.position || "left"
-		a(href=nameValue.url, class=nameValue.position + " " + arguments.class, arguments.id).button= nameValue.title
+		a(href=nameValue.url, class=nameValue.position + " " + arguments.class, id!=arguments.id).button= nameValue.title
 	- }
 	- else {
 		- if (pos === 'right')
@@ -96,6 +96,9 @@ mixin button(nameValue, pos)
 		- else if (pos === 'extend') {
 			div
 				a(href=url).button.extend= nameValue
+		- }
+		- else {
+				a(href=url, class!=attributes.class + " button", id!=attributes.id)= nameValue
 		- }
 	- }
 

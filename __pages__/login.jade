@@ -1,0 +1,13 @@
+extend __core__/default
+block content
+	+panel('light')
+		div.wrap.access-form
+			form#login.logged-out-view
+				h3 Login
+				+email("Email", "required")
+				+password("Password", "required")
+				p.right-justify.top-whitespace
+					+button("Login").submit.logged-out-view
+			p.logged-in-view
+				a.logout(href="") Logout
+block script

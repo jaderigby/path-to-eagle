@@ -37,6 +37,7 @@ h6
 // Begin your custom styles here!
 
 segment = 269
+seperator = 25
 
 .special .panel
 	padding-top: 55px
@@ -142,16 +143,17 @@ h3 .semi
 	z-index: 1
 
 .shadow-progress-bar
-	margin-bottom: 25px
+	margin-bottom: (seperator)px
 	height: 26px
 	width: ((segment * 7) + 7)px
+	// background-color: #f1f1f1
 	&.selected
 		background-color: #eee
 
 .rank
 	position: relative
 	float: left
-	height: 373px
+	height: 424px
 	width: (segment)px
 	&:after
 		content: ""
@@ -166,7 +168,7 @@ h3 .semi
 			background-color: transparent
 
 .scout
-	margin-bottom: 25px
+	margin-bottom: (seperator)px
 	&:after
 		content: ""
 		display: table
@@ -185,7 +187,7 @@ h3 .semi
 		background-color: #b30164 // 960101, 6d00b1, 8100ab, b30164
 
 .progress-bar
-	margin-bottom: 25px
+	margin-bottom: (seperator)px
 	height: 26px
 	width: ((segment * 7) + 7)px
 	.fragment
@@ -227,7 +229,7 @@ h3 .semi
 #shadowCast
 	position: relative
 	float: left
-	height: 390px
+	height: 433px
 	// width: 80px
 	// margin-left: -80px
 	margin-left: -8px
@@ -251,7 +253,7 @@ h3 .semi
 #keysTrigger
 	position: absolute
 	top: -40px
-	right: 10px
+	right: 4px
 	width: 26px
 	height: 20px
 	padding-top: 6px
@@ -286,6 +288,41 @@ h3 .semi
 
 .close-modal
 	color: #1f78ec
+
+div.access-form
+	width: 80%
+	margin: 0 auto
+	max-width: 420px
+
+.logged-in-view
+	display: none;
+
+.requirement-status
+	font-size: 0.8rem
+	position: absolute
+	right: 30px
+	background-color: #cacaca
+	padding: 5px 10px
+	border-radius: 100px
+	color: white
+	top: 49px
+	cursor: pointer
+
+.requirement-status.has-completed
+	background-color: #1d79ec
+
+#selectAll
+	position: absolute
+	top: -38px
+	left: 0
+	padding: 4px 16px
+	background-color: #ddd
+	border-radius: 4px
+	color: white
+	cursor: pointer
+	&.show
+		background-color: #1f78ec
+
 
 // #progressWrapper:after
 // 	content: ""

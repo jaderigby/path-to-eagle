@@ -4,7 +4,7 @@
 
 	Liscensed under MIT
 	Copyright (c) 2014-2015 - Jade C. Rigby
-	
+
 	AUTHOR: Jade C. Rigby
 	DATE: 3/12/2017
 	EMAIL: contact@jaderigby.com
@@ -20,9 +20,9 @@
 =============================================================================*/
 
 // TO USE: First, make sure to include both jQuery and "magicVial.js".
-// Then, call the function "magicVial('form')" passing in as the 
-// parameter whatever you want to validate, using a "jQuery" like descriptor, 
-// such as "form#mainForm", etc. 
+// Then, call the function "magicVial('form')" passing in as the
+// parameter whatever you want to validate, using a "jQuery" like descriptor,
+// such as "form#mainForm", etc.
 // EXAMPLE: magicVial('form#contact');
 
 
@@ -89,7 +89,7 @@ function magicVial(myArg, useRequiredMessage) {
 			}
 		}
 	});
-	
+
 	// Correction for text inputs
 	$(myArg+' input').on('change paste copy cut keyup keydown focusout', function() {
 

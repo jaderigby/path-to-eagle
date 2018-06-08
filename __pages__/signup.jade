@@ -1,0 +1,19 @@
+extend __core__/default
+block content
+	+panel('light')
+		div.wrap.access-form
+			form#signup.logged-out-view
+				h3 Sign Up
+				+email("Email", "required")
+				+password("Password", "required", "newPassword")
+				+password("Confirm Password", "required", "newPassword")
+				+submit("Submit", "right")
+				p
+					| Already a member? 
+					span.breaker
+						+link('/', "[ Log In ]")
+			div.logged-in-view
+				p
+					+button("/", "Go To Calendar", "extend")
+
+block script
