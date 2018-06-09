@@ -91,19 +91,18 @@ function toggleRequirement(data, owner, rank, requirement) {
       data[i].ranks.forEach(function(_rank_) {
         if (_rank_.name === rank) {
           if ('requirements' in _rank_) {
-            if (_rank_.requirements.includes(requirement)) {
-              var index = _rank_.requirements.indexOf(requirement);
-              if (index > -1) {
-                _rank_.requirements.splice(index, 1);
-              }
+            if (requirement in _rank_.requirements) {
+              delete _rank_.requirements[requirement]
             } else {
-              _rank_.requirements.push(requirement);
-              _rank_.requirements.sort(compare);
+              var newAttrObj = {};
+              newAttrObj.name = requirement
+              _rank_.requirements[requirement] = newAttrObj;
             }
           } else {
-            _rank_.requirements = [];
-            _rank_.requirements.push(requirement);
-            _rank_.requirements.sort(compare);
+            var newAttrObj = {};
+            newAttrObj.name = requirement
+            _rank_.requirements = {};
+            _rank_.requirements[requirement] = newAttrObj;
           }
         }
       });
@@ -170,10 +169,10 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     				_boy_.ranks.forEach(function(_rank_) {
               if ('requirements' in _rank_) {
                 // console.log(_rank_.requirements);
-                _rank_.requirements.forEach(function(_requirement_) {
+                for (key in _rank_.requirements) {
                   //- console.log("name: ", _boy_.name, " rank: ", _rank_.name, "completed: ", _requirement_);
-                  $('[data-owner="'+ _boy_.name +'"] [data-rank="'+ _rank_.name +'"][data-requirement="'+ _requirement_ +'"]').addClass('completed');
-                });
+                  $('[data-owner="'+ _boy_.name +'"] [data-rank="'+ _rank_.name +'"][data-requirement="'+ _rank_.requirements[key].name +'"]').addClass('completed');
+                };
               }
     				});
     			});

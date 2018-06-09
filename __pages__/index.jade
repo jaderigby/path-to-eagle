@@ -34,7 +34,8 @@ block content
 					h3 
 				+min()
 					div.requirement-status
-				div.rank-content
+			div.rank-content
+			div.notes-wrapper
 		div#scoutWrapper
 			div#selectAll Batch
 			div#keysTrigger ?
@@ -86,7 +87,6 @@ block script
 				}
 			});
 		});
-		
 		
 		$('.scout .name').click(function(e) {
 			if ($('#selectAll').hasClass('show')) {
