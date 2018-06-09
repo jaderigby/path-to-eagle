@@ -368,6 +368,11 @@
       							$('#noteTextarea').val("");
       							$('#notesWrapper .collapsible.drawer').css('display', 'none');
       						}
+      					} else {
+      						$('#notesWrapper').removeClass('has-note');
+      						$('#currentNote').text("");
+      						$('#noteTextarea').val("");
+      						$('#notesWrapper .collapsible.drawer').css('display', 'none');
       					}
               }
             });
