@@ -165,12 +165,16 @@ $('#notesWrapper').delegate('.add-note', 'click', function() {
   handleNotes(note, window.dataObj, owner, rank, requirement);
   console.log(owner, ": ", rank +"-"+ requirement, "Note --", note);
   // $('.note-saved-message').addClass('show');
+
   var newNoteValue = $('#noteTextarea').val();
   var $fragment = $('[data-owner="'+ owner +'"] .fragment[data-rank="'+ rank +'"][data-requirement="'+ requirement +'"]');
+
   $('#currentNote').text(newNoteValue);
   $('#notesWrapper').removeClass('edit-mode');
   $($fragment).removeClass('editing');
   $('#editNote').text('Edit');
+  // $('#addNote').css('display', 'none');
+  $('#notesWrapper').addClass('has-note');
   // setTimeout(500, function() {
   //   $('.note-saved-message').removeClass('show');
   // });
