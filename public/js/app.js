@@ -173,8 +173,10 @@ $('#notesWrapper').delegate('.add-note', 'click', function() {
   $('#notesWrapper').removeClass('edit-mode');
   $($fragment).removeClass('editing');
   $('#editNote').text('Edit');
-  // $('#addNote').css('display', 'none');
   $('#notesWrapper').addClass('has-note');
+  if ($('#notesWrapper #addNote').text() == 'Close') {
+    $('#notesWrapper #addNote').text('Add a note');
+  }
   // setTimeout(500, function() {
   //   $('.note-saved-message').removeClass('show');
   // });
