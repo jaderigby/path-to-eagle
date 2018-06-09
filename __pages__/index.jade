@@ -183,6 +183,14 @@ block script
 		$('#keysTrigger').click(function() {
 			$(this).toggleClass('show');
 			$('#progressWrapper').toggleClass('show-keys');
+			if ($(this).hasClass('show')) {
+				window.keysStatus = true;
+				createCookie('keysStatus', true, 3650);
+			}
+			else {
+				window.keysStatus = false;
+				createCookie('keysStatus', false, 3650);
+			}
 		});
 		
 		$('.modal-trigger').not('.completed').click(function() {

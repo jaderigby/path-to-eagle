@@ -2,6 +2,46 @@
 
 window.loaded = false;
 
+//======================
+//    Cookies
+//======================
+
+function createCookie(name,value,days) {
+ if (days) {
+   var date = new Date();
+   date.setTime(date.getTime()+(days*24*60*60*1000));
+   var expires = "; expires="+date.toGMTString();
+ }
+ else var expires = "";
+ document.cookie = name+"="+value+expires+"; path=/";
+}
+
+function readCookie(name) {
+ var nameEQ = name + "=";
+ var ca = document.cookie.split(';');
+ for(var i=0;i < ca.length;i++) {
+   var c = ca[i];
+   while (c.charAt(0)==' ') c = c.substring(1,c.length);
+   if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+ }
+}
+
+// createCookie('emailCapture', 'viewed', 3650);
+
+// var x = readCookie('SeroVitalEmailCapture');
+// if (x) {
+//   window.SeroVitalEmailCapture = true;
+// }
+// else if (!x) {
+//   createCookie('SeroVitalEmailCapture', 'viewed', 3650);
+//   window.SeroVitalEmailCapture = false;
+// }
+
+
+
+
+
+
 $('form').each(function() {
   // console.log($(this).attr('id'));
   magicVial('form#' + $(this).attr('id'), "Sorry, please fix the errors below.");
@@ -202,6 +242,16 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
 
 
 
+
+        function keysCookieInit() {
+          window.keysStatus = readCookie('keysStatus') || false;
+          if (window.keysStatus === 'true') {
+            $('#keysTrigger').addClass('show');
+    				$('#progressWrapper').addClass('show-keys');
+          }
+        }
+
+        keysCookieInit();
 
         function initBarFragments() {
     			var progressBarBuild = [];
