@@ -6078,6 +6078,47 @@ div.access-form {
 #selectAll.show {
   background-color: #1f78ec;
 }
+#notesWrapper {
+  margin-top: 30px;
+  color: #828282;
+}
+#notesWrapper #addNote,
+#notesWrapper #editNote {
+  text-decoration: underline;
+  color: #1f78ec;
+  cursor: pointer;
+}
+#notesWrapper #showNotes {
+  font-size: 1.3rem;
+  margin: 15px 0;
+}
+#notesWrapper #editNote {
+  display: none;
+  margin-top: 18px;
+}
+#notesWrapper #currentNote {
+  display: none;
+}
+#notesWrapper .note-saved-message {
+  display: none;
+}
+#notesWrapper .note-saved-message.show {
+  display: block;
+}
+#notesWrapper.has-note #noteField,
+#notesWrapper.has-note #addNote {
+  display: none;
+}
+#notesWrapper.has-note #currentNote,
+#notesWrapper.has-note #editNote {
+  display: block;
+}
+#notesWrapper.has-note.edit-mode #noteField {
+  display: block;
+}
+#notesWrapper.has-note.edit-mode #currentNote {
+  display: none;
+}
 .cf:after {
   content: "";
   display: table;

@@ -323,6 +323,40 @@ div.access-form
 	&.show
 		background-color: #1f78ec
 
+#notesWrapper
+	margin-top: 30px
+	color: #828282
+	#addNote
+	#editNote
+		text-decoration: underline
+		color: #1f78ec
+		cursor: pointer
+	#showNotes
+		font-size: 1.3rem
+		margin: 15px 0
+	#editNote
+		display none
+		margin-top: 18px
+	#currentNote
+		display: none
+	.note-saved-message
+		display: none
+		&.show
+			display: block
+
+#notesWrapper.has-note
+	#noteField
+	#addNote
+		display: none
+	#currentNote
+	#editNote
+		display: block
+
+#notesWrapper.has-note.edit-mode
+	#noteField
+		display: block
+	#currentNote
+		display: none
 
 // #progressWrapper:after
 // 	content: ""

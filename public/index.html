@@ -89,7 +89,30 @@
                                               </div>
                                   </div>
                         <div class="rank-content"></div>
-                        <div class="notes-wrapper"></div>
+                        <div id="notesWrapper">
+                          <div id="addNote" class="collapsible trigger">Add a note</div>
+                          <div class="collapsible drawer">
+                                      <div class="segment half">
+                                                  <div class="segment-max">
+                                                    <div id="showNotes">Notes</div>
+                                                  </div>
+                                                  <div class="segment-min">
+                                                    <div class="right-justify">
+                                                      <div id="editNote">Edit</div>
+                                                    </div>
+                                                  </div>
+                                      </div>
+                            <div id="currentNote"></div>
+                            <div id="noteField">
+                                        <div class="form-element">
+                                          <textarea id="noteTextarea"></textarea>
+                                          <label></label>
+                                        </div>
+                              <div class="form-element"><a class="right add-note button">Save</a>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
                       </div>
                       <div id="scoutWrapper">
                         <div id="selectAll">Batch</div>
@@ -290,6 +313,7 @@
       });
       
       $('#progressWrapper').delegate('.fragment', 'click', function(e) {
+      	$('#notesWrapper').removeClass('edit-mode');
       	var owner = $(this).parent().attr('data-owner');
       	var rank = $(this).attr('data-rank');
       	var requirement = $(this).attr('data-requirement');
@@ -322,6 +346,34 @@
       		toggleRequirement(window.dataObj, owner, rank, requirement);
       		writeUserData(window.database, window.dataObj);
       	}
+      	var keyString = rank.replace(" ", "") + "_" + requirement;
+      	var $fragment = $('[data-owner="'+ owner +'"] .fragment[data-rank="'+ rank +'"][data-requirement="'+ requirement +'"]');
+      	if ($($fragment).hasClass('editing')) {
+      		$('#notesWrapper').addClass('edit-mode');
+      	}
+      	for (var i = 0; i < window.dataObj.length; i++) {
+          if (window.dataObj[i].name === owner) {
+            window.dataObj[i].ranks.forEach(function(_rank_) {
+              if (_rank_.name === rank) {
+                if ('notes' in _rank_) {
+      						if (keyString in _rank_.notes) {
+      							var note = _rank_.notes[keyString];
+      							$('#notesWrapper').addClass('has-note');
+      							$('#currentNote').text(note);
+      							$('#noteTextarea').val(note);
+      							$('#notesWrapper .collapsible.drawer').css('display', 'block');
+      						} else {
+      							$('#notesWrapper').removeClass('has-note');
+      							$('#currentNote').text("");
+      							$('#noteTextarea').val("");
+      							$('#notesWrapper .collapsible.drawer').css('display', 'none');
+      						}
+      					}
+              }
+            });
+            continue;
+          }
+        }
       });
       
       //- $('body').delegate('.requirement-status', 'click', function() {

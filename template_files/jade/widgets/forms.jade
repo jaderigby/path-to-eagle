@@ -213,5 +213,5 @@ mixin radio(name, items)
 					- iterRadio++
 mixin textarea(description)
 	.form-element
-		textarea
+		textarea(class!=attributes.class, id!=attributes.id)
 		label=description

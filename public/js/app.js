@@ -111,6 +111,71 @@ function toggleRequirement(data, owner, rank, requirement) {
   }
 }
 
+$('#addNote').click(function() {
+  if ($(this).text() == 'Close') {
+    $(this).text('Add a note');
+  }
+  else {
+    $(this).text('Close');
+    $('#noteTextarea').val("");
+  }
+});
+
+$('#editNote').click(function() {
+  var $ref = $('#modalWindow .requirement-status');
+  var owner = $($ref).attr('data-owner');
+  var rank = $($ref).attr('data-rank');
+  var requirement = $($ref).attr('data-requirement');
+  var $fragment = $('[data-owner="'+ owner +'"] .fragment[data-rank="'+ rank +'"][data-requirement="'+ requirement +'"]');
+  if ($($fragment).hasClass('editing')) {
+    $($fragment).removeClass('editing');
+    $('#notesWrapper').removeClass('edit-mode');
+    $(this).text('Edit');
+  } else {
+    $($fragment).addClass('editing');
+    $('#notesWrapper').addClass('edit-mode');
+    $(this).text('Cancel');
+  }
+});
+
+function handleNotes(note, data, owner, rank, requirement) {
+  for (var i = 0; i < data.length; i++) {
+    if (data[i].name === owner) {
+      data[i].ranks.forEach(function(_rank_) {
+        if (_rank_.name === rank) {
+          if (!('notes' in _rank_)) {
+            _rank_.notes = {};
+          }
+          var keyString = rank.replace(" ", "") + "_" + requirement;
+          _rank_.notes[keyString] = note;
+        }
+      });
+      continue;
+    }
+  }
+  writeUserData(window.database, window.dataObj);
+}
+
+$('#notesWrapper').delegate('.add-note', 'click', function() {
+  var $ref = $('#modalWindow .requirement-status');
+  var owner = $($ref).attr('data-owner');
+  var rank = $($ref).attr('data-rank');
+  var requirement = $($ref).attr('data-requirement');
+  var note = $('#noteTextarea').val();
+  handleNotes(note, window.dataObj, owner, rank, requirement);
+  console.log(owner, ": ", rank +"-"+ requirement, "Note --", note);
+  // $('.note-saved-message').addClass('show');
+  var newNoteValue = $('#noteTextarea').val();
+  var $fragment = $('[data-owner="'+ owner +'"] .fragment[data-rank="'+ rank +'"][data-requirement="'+ requirement +'"]');
+  $('#currentNote').text(newNoteValue);
+  $('#notesWrapper').removeClass('edit-mode');
+  $($fragment).removeClass('editing');
+  $('#editNote').text('Edit');
+  // setTimeout(500, function() {
+  //   $('.note-saved-message').removeClass('show');
+  // });
+});
+
 firebase.auth().onAuthStateChanged(firebaseUser => {
   if (firebaseUser) {
       $(".logged-in-view").show();
