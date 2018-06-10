@@ -5771,6 +5771,12 @@ h6 {
 #siteWrapper {
   background-color: #fff;
 }
+#content {
+  min-height: calc(100vh - 160px);
+}
+footer {
+  height: inherit;
+}
 .special .panel {
   padding-top: 55px;
 }
@@ -5893,7 +5899,7 @@ h3 .semi {
   content: "";
   position: absolute;
   width: 1px;
-  background-color: #d2d2d2;
+  background-color: #868686;
   right: 0;
   top: 0;
   bottom: 0;
@@ -5974,7 +5980,7 @@ h3 .semi {
   height: 433px;
   margin-left: -8px;
   z-index: 10;
-  border-right: 8px solid #f3f3f3;
+  border-right: 8px solid #e4e4e4;
 }
 .label {
   position: absolute;
@@ -6005,7 +6011,7 @@ h3 .semi {
   padding-top: 6px;
   text-align: center;
   border-radius: 100px;
-  background-color: #ddd;
+  background-color: #cecece;
   font-family: arial, sans-serif;
   color: #fff;
   -webkit-transition: all 0.2s ease-in-out;
@@ -6023,7 +6029,7 @@ h3 .semi {
   width: 30px;
   height: 30px;
   border: 2px solid;
-  border-color: #ddd;
+  border-color: #cecece;
   border-radius: 100px;
   -webkit-transition: all 0.27s ease-in-out;
   -moz-transition: all 0.27s ease-in-out;
@@ -6070,7 +6076,7 @@ div.access-form {
   top: -38px;
   left: 0;
   padding: 4px 16px;
-  background-color: #ddd;
+  background-color: #cecece;
   border-radius: 4px;
   color: #fff;
   cursor: pointer;

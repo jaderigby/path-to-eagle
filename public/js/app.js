@@ -313,6 +313,8 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     				});
     			$('#rankWrapper').css('width', total + 8 + "px");
     			$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
+          var rankHeight = (((26 + 25) * window.dataObj.length) - 25) + 41;
+          $('#rankWrapper .rank').css('height', rankHeight + "px");
     		}
 
         function initNoteFragments() {

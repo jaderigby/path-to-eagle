@@ -1,6 +1,6 @@
 extend __core__/default
 block content
-	+panel().special.light.cf
+	+panel().special.light.cf.last-panel
 		//- div#branding.cf
 		//- 	img(src="/images/boy-scout-logo.jpg")
 		//- 	div#troop Troop
@@ -82,6 +82,7 @@ block content
 						h4.center-justify= rankName[x]
 						- x++, a++
 		div#shadowCast
+block footer
 	+panel().dark.footer
 block script
 	script(src="/js/scout-record-0.0.3.js")

@@ -39,6 +39,18 @@ h6
 segment = 269
 seperator = 25
 
+#content
+	min-height: calc(100vh - 160px)
+
+footer
+	height: inherit
+
+// .panel-wrap:last-child
+// 	margin-top: auto
+//
+// .panel-wrap .footer
+// 	// flex-shrink: 0
+
 .special .panel
 	padding-top: 55px
 
@@ -159,7 +171,7 @@ h3 .semi
 		content: ""
 		position: absolute
 		width: 1px
-		background-color: #d2d2d2
+		background-color: #868686 // 909090, 9a9a9a, 808080, 868686
 		right: 0
 		top: 0
 		bottom: 0
@@ -235,7 +247,7 @@ h3 .semi
 	margin-left: -8px
 	// background: url(/images/shadow-tile.png) repeat-y
 	z-index: 10
-	border-right: 8px solid #f3f3f3
+	border-right: 8px solid #e4e4e4
 	// box-shadow: inset -13px 0 35px rgba(0,0,0,0.06)
 
 .label
@@ -259,7 +271,7 @@ h3 .semi
 	padding-top: 6px
 	text-align: center
 	border-radius: 100px
-	background-color: #ddd
+	background-color: #cecece
 	font-family: arial, sans-serif
 	color: white
 	transition: all 0.2s ease-in-out
@@ -273,7 +285,7 @@ h3 .semi
 	width: 30px
 	height: 30px
 	border: 2px solid
-	border-color: #ddd
+	border-color: #cecece
 	border-radius: 100px
 	transition: all 0.27s ease-in-out
 
@@ -316,7 +328,7 @@ div.access-form
 	top: -38px
 	left: 0
 	padding: 4px 16px
-	background-color: #ddd
+	background-color: #cecece
 	border-radius: 4px
 	color: white
 	cursor: pointer
@@ -373,6 +385,9 @@ div.access-form
 
 .selected .note-fragment.completed:before
 	background-color: #52d2c6 // 58e2d5, 52d2c6
+
+// .rank[data-lane="Scout"]
+// 	background-color: ##b1f5eb59
 
 // #progressWrapper:after
 // 	content: ""
