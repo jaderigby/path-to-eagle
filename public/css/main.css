@@ -6119,6 +6119,22 @@ div.access-form {
 #notesWrapper.has-note.edit-mode #currentNote {
   display: none;
 }
+.selected .note-fragment:before {
+  content: "";
+  position: absolute;
+  margin: auto;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 1px;
+  width: 6px;
+  height: 6px;
+  border-radius: 10px;
+  background-color: #c5c5c5;
+}
+.selected .note-fragment.completed:before {
+  background-color: #52d2c6;
+}
 .cf:after {
   content: "";
   display: table;

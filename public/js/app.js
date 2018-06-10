@@ -217,6 +217,7 @@ $('#notesWrapper').delegate('.add-note', 'click', function() {
   if ($('#notesWrapper #addNote').text() == 'Close') {
     $('#notesWrapper #addNote').text('Add a note');
   }
+  $($fragment).addClass('note-fragment');
   // setTimeout(500, function() {
   //   $('.note-saved-message').removeClass('show');
   // });
@@ -314,12 +315,27 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     			$('.shadow-progress-bar, .progress-bar').css('width', total + "px");
     		}
 
+        function initNoteFragments() {
+          window.dataObj.forEach(function(_boy_) {
+    				_boy_.ranks.forEach(function(_rank_) {
+              if ('notes' in _rank_) {
+                for (var key in _rank_.notes) {
+                  var rank = key.match(/[A-Z]{1}[a-z]*/g).join(' ');
+                  var requirement = key.match(/_[0-9a-z]{1,3}/g)[0].replace('_', '');
+                  $('[data-owner="'+ _boy_.name +'"] [data-rank="'+ rank +'"][data-requirement="'+ requirement +'"]').addClass('note-fragment');
+                }
+              }
+    				});
+    			});
+        }
+
         if (!window.loaded) {
           var barFragments = initBarFragments();
           // console.log(barFragments);
           initMemberBars(barFragments);
           initMarkedBars();
           initRankSeparators();
+          initNoteFragments();
           window.loaded = true;
         }
         initMarkedBars();
