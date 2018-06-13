@@ -5777,6 +5777,9 @@ h6 {
 footer {
   height: inherit;
 }
+.modal.window > .wrap {
+  margin-top: 60px;
+}
 .special .panel {
   padding-top: 55px;
 }
