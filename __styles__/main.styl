@@ -357,18 +357,12 @@ div.access-form
 			display: block
 
 #notesWrapper.has-note
-	#noteField
 	#addNote
 		display: none
 	#currentNote
 	#editNote
 		display: block
-
-#notesWrapper.has-note.edit-mode
-	#noteField
-		display: block
-	#currentNote
-		display: none
+		opacity: 1
 
 .selected .note-fragment:before
 	content: ""
@@ -385,6 +379,110 @@ div.access-form
 
 .selected .note-fragment.completed:before
 	background-color: #52d2c6 // 58e2d5, 52d2c6
+
+#notesWrapper.has-note.edit-mode
+	#currentNote
+		opacity: 0
+		font-size: 0.85rem
+		transform: translate(10px, 32px)
+
+#noteField
+#currentNote
+	position: absolute
+	left: 20px
+	right: 20px
+	margin-bottom: 25px
+
+#currentNote
+	transition: all 0.5s ease-out
+
+#notesWrapper
+	#noteDrawer
+		opacity: 0
+
+#notesWrapper.add-mode
+	#noteDrawer
+		animation-name: editMode
+		animation-duration: 1s
+		animation-direction: normal
+		opacity: 1
+
+#notesWrapper.closed-mode
+	#noteDrawer
+		animation-name: editModeReverse
+		animation-duration: 1s
+		animation-direction: normal
+		opacity: 0
+
+#notesWrapper.has-note
+	#noteDrawer
+		display: block
+		opacity: 1
+	#noteField
+		opacity: 0
+		z-index: 1
+	#currentNote
+		z-index: 2
+
+#notesWrapper.has-note.edit-mode
+	#noteField
+		z-index: 3
+		animation-name: editMode
+		animation-duration: 1s
+		animation-direction: normal
+		opacity: 1
+
+#notesWrapper.has-note.default-mode
+	#noteField
+		z-index: 1
+		animation-name: editModeReverse
+		animation-duration: 1s
+		opacity: 0
+
+@keyframes editMode
+	0%
+		opacity: 0
+		// transform: translateX(-30px)
+	100%
+		opacity: 1
+		// transform: translateX(0)
+
+@keyframes editModeReverse
+	0%
+		opacity: 1
+		// transform: translateX(-30px)
+	100%
+		opacity: 0
+		// transform: translateX(0)
+
+.animated-item
+	opacity: 0
+
+.animated-item.active
+	animation-name: testMode
+	animation-duration: 1s
+	opacity: 1
+
+.animated-item.default
+	animation-name: testModeReturn
+	animation-duration: 1s
+	opacity: 0
+
+@keyframes testMode
+	0%
+		opacity: 0
+		// transform: translateX(-30px)
+	100%
+		opacity: 1
+		// transform: translateX(0)
+
+@keyframes testModeReturn
+	0%
+		opacity: 1
+		// transform: translateX(-30px)
+	100%
+		opacity: 0
+		// transform: translateX(0)
 
 // .rank[data-lane="Scout"]
 // 	background-color: ##b1f5eb59

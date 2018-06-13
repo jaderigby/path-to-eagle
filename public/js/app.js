@@ -154,10 +154,14 @@ function toggleRequirement(data, owner, rank, requirement) {
 $('#addNote').click(function() {
   if ($(this).text() == 'Close') {
     $(this).text('Add a note');
+    $('#notesWrapper').removeClass('add-mode');
+    $('#notesWrapper').addClass('closed-mode');
   }
   else {
     $(this).text('Close');
     $('#noteTextarea').val("");
+    $('#notesWrapper').removeClass('closed-mode');
+    $('#notesWrapper').addClass('add-mode');
   }
 });
 
@@ -170,10 +174,12 @@ $('#editNote').click(function() {
   if ($($fragment).hasClass('editing')) {
     $($fragment).removeClass('editing');
     $('#notesWrapper').removeClass('edit-mode');
+    $('#notesWrapper').addClass('default-mode');
     $(this).text('Edit');
   } else {
     $($fragment).addClass('editing');
     $('#notesWrapper').addClass('edit-mode');
+    $('#notesWrapper').removeClass('default-mode');
     $(this).text('Cancel');
   }
 });
@@ -211,6 +217,7 @@ $('#notesWrapper').delegate('.add-note', 'click', function() {
 
   $('#currentNote').text(newNoteValue);
   $('#notesWrapper').removeClass('edit-mode');
+  $('#notesWrapper').addClass('default-mode');
   $($fragment).removeClass('editing');
   $('#editNote').text('Edit');
   $('#notesWrapper').addClass('has-note');

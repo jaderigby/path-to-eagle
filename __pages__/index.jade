@@ -36,8 +36,8 @@ block content
 					div.requirement-status
 			div.rank-content
 			div#notesWrapper
-				div#addNote.collapsible.trigger Add a note
-				div.collapsible.drawer
+				div#addNote Add a note
+				div#noteDrawer
 					+seg().half
 						+max()
 							div#showNotes Notes
@@ -235,6 +235,7 @@ block script
 			var keyString = rank.replace(" ", "") + "_" + requirement;
 			var $fragment = $('[data-owner="'+ owner +'"] .fragment[data-rank="'+ rank +'"][data-requirement="'+ requirement +'"]');
 			if ($($fragment).hasClass('editing')) {
+				$('#editNote').text('Cancel');
 				$('#notesWrapper').addClass('edit-mode');
 			}
 			for (var i = 0; i < window.dataObj.length; i++) {
@@ -247,24 +248,43 @@ block script
 									$('#notesWrapper').addClass('has-note');
 									$('#currentNote').text(note);
 									$('#noteTextarea').val(note);
-									$('#notesWrapper .collapsible.drawer').css('display', 'block');
+									//- $('#notesWrapper .collapsible.drawer').css('display', 'block');
 								} else {
 									$('#notesWrapper').removeClass('has-note');
 									$('#currentNote').text("");
 									$('#noteTextarea').val("");
-									$('#notesWrapper .collapsible.drawer').css('display', 'none');
+									//- $('#notesWrapper .collapsible.drawer').css('display', 'none');
 								}
 							} else {
 								$('#notesWrapper').removeClass('has-note');
 								$('#currentNote').text("");
 								$('#noteTextarea').val("");
-								$('#notesWrapper .collapsible.drawer').css('display', 'none');
+								//- $('#notesWrapper .collapsible.drawer').css('display', 'none');
 							}
 		        }
 		      });
 		      continue;
 		    }
 		  }
+		});
+		
+		$('#modalViewport').click(function(e) {
+			if(e.target != this) return;
+			$('#notesWrapper').removeClass('add-mode');
+			$('#notesWrapper').removeClass('closed-mode');
+			$('#notesWrapper').removeClass('edit-mode');
+			$('#notesWrapper').removeClass('default-mode');
+			$('#editNote').text('Edit');
+			$('#addNote').text('Add a note');
+		});
+		
+		$('.modal.window').delegate('.close-modal, .close-modal-alt', 'click', function(e) {
+			$('#notesWrapper').removeClass('add-mode');
+			$('#notesWrapper').removeClass('closed-mode');
+			$('#notesWrapper').removeClass('edit-mode');
+			$('#notesWrapper').removeClass('default-mode');
+			$('#editNote').text('Edit');
+			$('#addNote').text('Add a note');
 		});
 		
 		//- $('body').delegate('.requirement-status', 'click', function() {
