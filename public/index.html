@@ -251,6 +251,29 @@
       		$('[data-owner="'+ $(this).attr('data-name') +'"]').addClass('selected');
       	}
       });
+      //- $('.progress-bar').click(function(e) {
+      //- 	if ($('#selectAll').hasClass('show')) {
+      //- 		$('#selectAll').removeClass('show');
+      //- 		$('.scout .name').removeClass('selected');
+      //- 		$('.shadow-progress-bar').removeClass('selected');
+      //- 		$('.progress-bar').removeClass('selected');
+      //- 		$(this).addClass('selected');
+      //- 		$('[data-name="'+ $(this).attr('data-owner') +'"]').addClass('selected');
+      //- 	}
+      //- 	else if ($(this).hasClass('selected')) {
+      //- 		$(this).removeClass('selected');
+      //- 		$('.shadow-progress-bar').removeClass('selected');
+      //- 		$('.progress-bar').removeClass('selected');
+      //- 	}
+      //- 	else {
+      //- 		$('.scout .name').removeClass('selected');
+      //- 		$('.shadow-progress-bar').removeClass('selected');
+      //- 		$('.progress-bar').removeClass('selected');
+      //- 		$(this).addClass('selected');
+      //- 		$('[data-name="'+ $(this).attr('data-owner') +'"]').addClass('selected');
+      //- 	}
+      //- });
+      
       $('#selectAll').click(function() {
       	if ($(this).hasClass('show') && $('.scout .name.selected').length > 0) {
       		$(this).removeClass('show');
