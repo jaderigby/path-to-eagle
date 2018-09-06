@@ -6060,6 +6060,13 @@ h3 .semi {
 }
 .close-modal {
   color: #1f78ec;
+  width: 32px;
+  height: 32px;
+}
+.close-modal .icon-close {
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 div.access-form {
   width: 80%;
