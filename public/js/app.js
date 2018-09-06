@@ -265,7 +265,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     			var progressBarBuild = [];
     			record.ranks.forEach(function(_rank_) {
     				var size = Object.keys(_rank_.requirements).length;
-    				var fragmentWidth = 15;
+    				var fragmentWidth = 21;
     				var requirementsList = [];
     				for (var key in _rank_.requirements) {
     					requirementsList.push(key);
@@ -313,7 +313,7 @@ firebase.auth().onAuthStateChanged(firebaseUser => {
     					$('[data-lane="'+ _rank_.name +'"]').css('width', function() {
     						//- console.log(_rank_.requirements);
     						var size = Object.size(_rank_.requirements);
-    						var calcWidth = 15 * size;
+    						var calcWidth = 21 * size;
     						total += calcWidth;
     						return calcWidth + "px";
     						});
